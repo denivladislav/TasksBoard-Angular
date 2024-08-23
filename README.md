@@ -1,5 +1,7 @@
 # ToDoList
 
+[![CI](https://github.com/Angular-OTUS/ToDoList-VladislavDenisov-/actions/workflows/CI.yml/badge.svg)](https://github.com/Angular-OTUS/ToDoList-VladislavDenisov-/actions/workflows/CI.yml)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.3.
 
 ## Development server
