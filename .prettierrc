@@ -5,19 +5,5 @@
     "semi": true,
     "singleQuote": true,
     "tabWidth": 4,
-    "trailingComma": "all",
-    "overrides": [
-        {
-          "files": "**/*.ts",
-          "options": {
-            "parser": "typescript"
-          }
-        },
-        {
-          "files": "**/*.json",
-          "options": {
-            "parser": "json"
-          }
-        }
-    ]
+    "trailingComma": "all"
 }
