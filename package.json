@@ -7,8 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint:ts": "eslint 'src/**/*.ts' --fix",
-    "lint:styles": "stylelint 'src/**/*.{css,scss}' --fix",
+    "lint:ts": "eslint 'src/**/*.ts'",
+    "lint:styles": "stylelint 'src/**/*.{css,scss}'",
     "lint:templates": "htmlhint 'src/**/*.html'",
     "lint": "npm run lint:ts && npm run lint:styles && npm run lint:templates",
     "prepare": "husky install"
