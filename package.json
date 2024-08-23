@@ -20,7 +20,7 @@
     "*.{css,scss}": [
       "stylelint --fix"
     ],
-    "*.{html}": [
+    "*.html": [
       "htmlhint"
     ]
   },
