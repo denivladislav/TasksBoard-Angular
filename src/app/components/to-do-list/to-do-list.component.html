@@ -2,17 +2,17 @@
     <header>
         <h1>Todo list</h1>
     </header>
-    <section>
+    <section class="task-list-section">
         <ul>
-            <app-task *ngFor="let task of taskList" [task]="task"></app-task>
+            <app-to-do-list-item *ngFor="let toDoListItem of toDoList" [toDoListItem]="toDoListItem"></app-to-do-list-item>
         </ul>
     </section>
     <section>
         <form class="add-new-todo-form">
             <mat-form-field class="add-new-todo-form__formfield">
-                <input matInput type="text" placeholder="Add your new todo" />
+                <input matInput [(ngModel)]="inputValue" type="text" placeholder="Add your new todo" name="taskTextInput" />
             </mat-form-field>
-            <button mat-flat-button disabled class="button button__add">Add</button>
+            <button mat-flat-button [disabled]="isInputValueEmpty" class="button button__add">Add</button>
         </form>
     </section>
 </main>
