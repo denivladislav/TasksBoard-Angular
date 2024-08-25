@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormControl, Validators, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,7 +10,15 @@ import { ToDoListItemComponent } from '../to-do-list-item/to-do-list-item.compon
 @Component({
     selector: 'app-to-do-list',
     standalone: true,
-    imports: [CommonModule, FormsModule, MatFormFieldModule, MatButtonModule, MatInputModule, ToDoListItemComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatInputModule,
+        ToDoListItemComponent,
+    ],
     templateUrl: './to-do-list.component.html',
     styleUrls: ['../../app.component.scss', './to-do-list.component.scss'],
 })
@@ -30,9 +38,24 @@ export class ToDoListComponent {
         },
     ];
 
-    public inputValue = '';
+    public noWhitespaceValidator(control: FormControl): ValidationErrors {
+        return (control.value || '').trim().length ? {} : { whitespace: true };
+    }
 
-    get isInputValueEmpty() {
-        return this.inputValue.length === 0;
+    public itemInputFormControl = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
+
+    public deleteItem(id: number) {
+        this.toDoList = this.toDoList.filter((item) => item.id !== id);
+    }
+
+    public addItem(text: string) {
+        const itemIds = this.toDoList.map((toDoListItem) => toDoListItem.id);
+        const newItemId = itemIds.length > 0 ? Math.max(...itemIds) + 1 : 0;
+        const sanitizedText = text.trim();
+        this.toDoList.push({
+            id: newItemId,
+            text: sanitizedText,
+        });
+        this.itemInputFormControl.reset();
     }
 }

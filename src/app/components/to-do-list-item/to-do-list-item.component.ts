@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToDoListItem } from './to-do-list-item.types';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -11,5 +11,10 @@ import { MatButtonModule } from '@angular/material/button';
     styleUrls: ['../../app.component.scss', './to-do-list-item.component.scss'],
 })
 export class ToDoListItemComponent {
-    @Input() toDoListItem: ToDoListItem | undefined;
+    @Input() toDoListItem!: ToDoListItem;
+    @Output() deleteToDoListItemEvent = new EventEmitter<number>();
+
+    public deleteToDoListItem(id: number) {
+        this.deleteToDoListItemEvent.emit(id);
+    }
 }

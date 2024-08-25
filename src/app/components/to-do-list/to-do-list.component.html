@@ -4,15 +4,18 @@
     </header>
     <section class="task-list-section">
         <ul>
-            <app-to-do-list-item *ngFor="let toDoListItem of toDoList" [toDoListItem]="toDoListItem"></app-to-do-list-item>
+            <app-to-do-list-item *ngFor="let toDoListItem of toDoList" [toDoListItem]="toDoListItem" (deleteToDoListItemEvent)="deleteItem($event)"></app-to-do-list-item>
         </ul>
     </section>
     <section>
         <form class="add-new-todo-form">
             <mat-form-field class="add-new-todo-form__formfield">
-                <input matInput [(ngModel)]="inputValue" type="text" placeholder="Add your new todo" name="taskTextInput" />
+                <input matInput [formControl]="itemInputFormControl" type="text" placeholder="Add your new todo" name="itemInput" />
+                @if (itemInputFormControl.hasError('required') || itemInputFormControl.hasError('whitespace')) {
+                    <mat-error>Name is <strong>required</strong></mat-error>
+                }
             </mat-form-field>
-            <button mat-flat-button [disabled]="isInputValueEmpty" class="button button__add">Add</button>
+            <button mat-flat-button [disabled]="itemInputFormControl.invalid" class="button button__add" (click)="addItem(itemInputFormControl.value!)">Add</button>
         </form>
     </section>
 </main>
