@@ -1,8 +1,9 @@
 .add-new-todo-form {
     display: flex;
+    align-items: baseline;
     gap: 2rem;
 }
 
-.add-new-todo-form__textfield {
+.add-new-todo-form__formfield {
     width: 100%;
 }

@@ -1,6 +1,6 @@
 <main>
     <header>
-        <h1 class="tui-text_h1">Todo list</h1>
+        <h1>Todo list</h1>
     </header>
     <section>
         <ul>
@@ -9,10 +9,10 @@
     </section>
     <section>
         <form class="add-new-todo-form">
-            <tui-textfield class="add-new-todo-form__textfield">
-                <input placeholder="Add your new todo" tuiTextfield />
-            </tui-textfield>
-            <button tuiButton appearance="accent">Add</button>
+            <mat-form-field class="add-new-todo-form__formfield">
+                <input matInput type="text" placeholder="Add your new todo" />
+            </mat-form-field>
+            <button mat-flat-button disabled class="button button__add">Add</button>
         </form>
     </section>
 </main>
