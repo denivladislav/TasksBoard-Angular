@@ -1,3 +1,19 @@
-tui-root {
-    padding: 2rem;
+.button,
+.button.mdc-button {
+    color: white;
+    border: none;
+
+    &[disabled] {
+        opacity: 0.5;
+    }
+}
+
+.button__add,
+.button__add.mdc-button {
+    background-color: green;
+}
+
+.button__delete,
+.button__delete.mdc-button {
+    background-color: red;
 }

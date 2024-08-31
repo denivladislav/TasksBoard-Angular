@@ -1,18 +1,21 @@
 <main>
     <header>
-        <h1 class="tui-text_h1">Todo list</h1>
+        <h1>Todo list</h1>
     </header>
-    <section>
+    <section class="task-list-section">
         <ul>
-            <app-task *ngFor="let task of taskList" [task]="task"></app-task>
+            <app-to-do-list-item *ngFor="let toDoListItem of toDoList" [toDoListItem]="toDoListItem" (deleteToDoListItemEvent)="deleteItem($event)"></app-to-do-list-item>
         </ul>
     </section>
     <section>
         <form class="add-new-todo-form">
-            <tui-textfield class="add-new-todo-form__textfield">
-                <input placeholder="Add your new todo" tuiTextfield>
-            </tui-textfield>
-            <button tuiButton appearance="accent">Add</button>
+            <mat-form-field class="add-new-todo-form__formfield">
+                <input matInput [formControl]="itemInputFormControl" type="text" placeholder="Add your new todo" name="itemInput" />
+                @if (itemInputFormControl.hasError('required') || itemInputFormControl.hasError('whitespace')) {
+                    <mat-error>Name is <strong>required</strong></mat-error>
+                }
+            </mat-form-field>
+            <button mat-flat-button [disabled]="itemInputFormControl.invalid" class="button button__add" (click)="addItem(itemInputFormControl.value!)">Add</button>
         </form>
     </section>
 </main>
