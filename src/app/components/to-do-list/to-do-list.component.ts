@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,12 +19,13 @@ import { noWhitespaceValidator } from '../../utils/validators';
         MatFormFieldModule,
         MatButtonModule,
         MatInputModule,
+        MatProgressSpinnerModule,
         ToDoListItemComponent,
     ],
     templateUrl: './to-do-list.component.html',
     styleUrls: ['../../app.component.scss', './to-do-list.component.scss'],
 })
-export class ToDoListComponent {
+export class ToDoListComponent implements OnInit {
     public toDoList: ToDoListItem[] = [
         {
             id: 0,
@@ -38,6 +40,10 @@ export class ToDoListComponent {
             text: 'Task3',
         },
     ];
+
+    public isLoading = true;
+
+    public itemInputFormControl = new FormControl('', [Validators.required, noWhitespaceValidator]);
 
     public deleteItem(id: number) {
         this.toDoList = this.toDoList.filter((item) => item.id !== id);
@@ -54,5 +60,7 @@ export class ToDoListComponent {
         this.itemInputFormControl.reset();
     }
 
-    public itemInputFormControl = new FormControl('', [Validators.required, noWhitespaceValidator]);
+    ngOnInit() {
+        setTimeout(() => (this.isLoading = false), 500);
+    }
 }

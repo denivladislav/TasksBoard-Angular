@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ToDoListItem } from './to-do-list-item.types';
 import { MatButtonModule } from '@angular/material/button';
+import { ToDoListItem } from './to-do-list-item.types';
 
 @Component({
     selector: 'app-to-do-list-item',
