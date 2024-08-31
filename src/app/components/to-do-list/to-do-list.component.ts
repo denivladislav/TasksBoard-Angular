@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, FormControl, Validators, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
+import { FormsModule, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import type { ToDoListItem } from '../to-do-list-item/to-do-list-item.types';
 import { ToDoListItemComponent } from '../to-do-list-item/to-do-list-item.component';
+import { noWhitespaceValidator } from '../../utils/validators';
 
 @Component({
     selector: 'app-to-do-list',
@@ -38,12 +39,6 @@ export class ToDoListComponent {
         },
     ];
 
-    public noWhitespaceValidator(control: FormControl): ValidationErrors {
-        return (control.value || '').trim().length ? {} : { whitespace: true };
-    }
-
-    public itemInputFormControl = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
-
     public deleteItem(id: number) {
         this.toDoList = this.toDoList.filter((item) => item.id !== id);
     }
@@ -58,4 +53,6 @@ export class ToDoListComponent {
         });
         this.itemInputFormControl.reset();
     }
+
+    public itemInputFormControl = new FormControl('', [Validators.required, noWhitespaceValidator]);
 }
