@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import type { ToDoListItem } from '../to-do-list-item/to-do-list-item.types';
 import { ToDoListItemComponent } from '../to-do-list-item/to-do-list-item.component';
 import { noWhitespaceValidator } from '../../utils/validators';
-import { ButtonComponent } from '../button/button.component';
+import { SharedModule } from '../../modules/shared/shared.module';
 
 @Component({
     selector: 'app-to-do-list',
@@ -21,8 +21,8 @@ import { ButtonComponent } from '../button/button.component';
         MatButtonModule,
         MatInputModule,
         MatProgressSpinnerModule,
+        SharedModule,
         ToDoListItemComponent,
-        ButtonComponent,
     ],
     templateUrl: './to-do-list.component.html',
     styleUrls: ['../../app.component.scss', './to-do-list.component.scss'],

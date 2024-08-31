@@ -10,5 +10,5 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
 })
 export class ButtonComponent extends MatButton {
     @Input() title = '';
-    @Output() outputClick = new EventEmitter<number>();
+    @Output() outputClick = new EventEmitter();
 }
