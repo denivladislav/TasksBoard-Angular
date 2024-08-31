@@ -1,4 +1,4 @@
 <li class="to-do-list-item">
     {{ toDoListItem!.text }}
-    <button mat-flat-button class="button button__delete" (click)="deleteToDoListItem(toDoListItem!.id)">Delete</button>
+    <app-button (outputClick)="deleteToDoListItem(toDoListItem!.id)" class="button__delete" title="Delete"></app-button>
 </li>
