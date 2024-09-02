@@ -18,7 +18,7 @@
                         <mat-error>Name is <strong>required</strong></mat-error>
                     }
                 </mat-form-field>
-                <app-button [disabled]="itemInputFormControl.invalid" (outputClick)="addItem(itemInputFormControl.value!)" title="Add" class="button__add"></app-button>
+                <app-button [disabled]="itemInputFormControl.invalid" (buttonClick)="addItem(itemInputFormControl.value!)" title="Add" class="button__add"></app-button>
                 
                 <!-- This button works incorrectly. It adds new item on click despite being disabled. -->
                 <!-- <app-button [disabled]="true" (click)="addItem(itemInputFormControl.value!)" title="Another Add" class="button__add"></app-button> -->
