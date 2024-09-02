@@ -1,0 +1,25 @@
+:host {
+    .button,
+    .button.button-mdc {
+        border: none;
+        color: white;
+
+        &[disabled] {
+            opacity: 0.5;
+        }
+    }
+}
+
+:host.button__add {
+    .button,
+    .button.button-mdc {
+        background-color: green;
+    }
+}
+
+:host.button__delete {
+    .button,
+    .button.button-mdc {
+        background-color: red;
+    }
+}

@@ -2,20 +2,27 @@
     <header>
         <h1>Todo list</h1>
     </header>
-    <section class="task-list-section">
-        <ul>
-            <app-to-do-list-item *ngFor="let toDoListItem of toDoList" [toDoListItem]="toDoListItem" (deleteToDoListItemEvent)="deleteItem($event)"></app-to-do-list-item>
-        </ul>
-    </section>
-    <section>
-        <form class="add-new-todo-form">
-            <mat-form-field class="add-new-todo-form__formfield">
-                <input matInput [formControl]="itemInputFormControl" type="text" placeholder="Add your new todo" name="itemInput" />
-                @if (itemInputFormControl.hasError('required') || itemInputFormControl.hasError('whitespace')) {
-                    <mat-error>Name is <strong>required</strong></mat-error>
-                }
-            </mat-form-field>
-            <button mat-flat-button [disabled]="itemInputFormControl.invalid" class="button button__add" (click)="addItem(itemInputFormControl.value!)">Add</button>
-        </form>
-    </section>
+    @if (isLoading) {
+        <mat-spinner class="task-list__loading-spinner"></mat-spinner>
+    } @else {
+        <section class="task-list-section">
+            <ul>
+                <app-to-do-list-item *ngFor="let toDoListItem of toDoList" [toDoListItem]="toDoListItem" (deleteToDoListItemEvent)="deleteItem($event)"></app-to-do-list-item>
+            </ul>
+        </section>
+        <section>
+            <form class="add-new-todo-form">
+                <mat-form-field class="add-new-todo-form__formfield">
+                    <input matInput [formControl]="itemInputFormControl" type="text" placeholder="Add your new todo" name="itemInput" />
+                    @if (itemInputFormControl.hasError('required') || itemInputFormControl.hasError('whitespace')) {
+                        <mat-error>Name is <strong>required</strong></mat-error>
+                    }
+                </mat-form-field>
+                <app-button [disabled]="itemInputFormControl.invalid" (buttonClick)="addItem(itemInputFormControl.value!)" title="Add" class="button__add"></app-button>
+                
+                <!-- This button works incorrectly. It adds new item on click despite being disabled. -->
+                <!-- <app-button [disabled]="true" (click)="addItem(itemInputFormControl.value!)" title="Another Add" class="button__add"></app-button> -->
+            </form>
+        </section>
+    }
 </main>

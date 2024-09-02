@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, FormControl, Validators, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
+import { FormsModule, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import type { ToDoListItem } from '../to-do-list-item/to-do-list-item.types';
 import { ToDoListItemComponent } from '../to-do-list-item/to-do-list-item.component';
+import { noWhitespaceValidator } from '../../utils/validators';
+import { SharedModule } from '../../modules/shared/shared.module';
 
 @Component({
     selector: 'app-to-do-list',
@@ -17,12 +20,14 @@ import { ToDoListItemComponent } from '../to-do-list-item/to-do-list-item.compon
         MatFormFieldModule,
         MatButtonModule,
         MatInputModule,
+        MatProgressSpinnerModule,
+        SharedModule,
         ToDoListItemComponent,
     ],
     templateUrl: './to-do-list.component.html',
     styleUrls: ['../../app.component.scss', './to-do-list.component.scss'],
 })
-export class ToDoListComponent {
+export class ToDoListComponent implements OnInit {
     public toDoList: ToDoListItem[] = [
         {
             id: 0,
@@ -38,11 +43,9 @@ export class ToDoListComponent {
         },
     ];
 
-    public noWhitespaceValidator(control: FormControl): ValidationErrors {
-        return (control.value || '').trim().length ? {} : { whitespace: true };
-    }
+    public isLoading = true;
 
-    public itemInputFormControl = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
+    public itemInputFormControl = new FormControl('', [Validators.required, noWhitespaceValidator]);
 
     public deleteItem(id: number) {
         this.toDoList = this.toDoList.filter((item) => item.id !== id);
@@ -57,5 +60,9 @@ export class ToDoListComponent {
             text: sanitizedText,
         });
         this.itemInputFormControl.reset();
+    }
+
+    ngOnInit() {
+        setTimeout(() => (this.isLoading = false), 500);
     }
 }
