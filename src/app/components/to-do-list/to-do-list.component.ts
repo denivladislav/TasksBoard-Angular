@@ -63,6 +63,6 @@ export class ToDoListComponent implements OnInit {
     }
 
     ngOnInit() {
-        setTimeout(() => (this.isLoading = false), 500);
+        setTimeout(() => (this.isLoading = false), 1000);
     }
 }
