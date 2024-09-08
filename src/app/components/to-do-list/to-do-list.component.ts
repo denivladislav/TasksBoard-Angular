@@ -10,6 +10,7 @@ import { ToDoListItemComponent } from '../to-do-list-item/to-do-list-item.compon
 import { noWhitespaceValidator } from '../../utils/validators';
 import { ButtonComponent } from '../../ui/button/button.component';
 import { ToDoListItemDescriptionComponent } from '../to-do-list-item-description/to-do-list-item-description.component';
+import { SharedModule } from '../../modules/shared/shared.module';
 
 @Component({
     selector: 'app-to-do-list',
@@ -25,6 +26,7 @@ import { ToDoListItemDescriptionComponent } from '../to-do-list-item-description
         ToDoListItemComponent,
         ToDoListItemDescriptionComponent,
         ButtonComponent,
+        SharedModule,
     ],
     templateUrl: './to-do-list.component.html',
     styleUrls: ['../../app.component.scss', './to-do-list.component.scss'],

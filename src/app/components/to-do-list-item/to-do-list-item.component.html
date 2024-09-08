@@ -1,4 +1,4 @@
 <li [ngClass]="{'to-do-list-item': true, 'to-do-list-item--selected': isSelected}" (click)="setSelectedItemId(toDoListItem!.id)">
     {{ toDoListItem!.text }}
-    <app-button (buttonClick)="deleteToDoListItem($event, toDoListItem!.id)" class="button__delete" title="Delete"></app-button>
+    <app-button appCustomTooltip tooltipText="Delete todo item" (buttonClick)="deleteToDoListItem($event, toDoListItem!.id)" class="button__delete" title="Delete"></app-button>
 </li>

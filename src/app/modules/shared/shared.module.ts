@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CustomTooltipDirective } from '../../directives/custom-tooltip.directive';
 
 @NgModule({
-    declarations: [],
-    imports: [CommonModule],
-    exports: [],
+    declarations: [CustomTooltipDirective],
+    exports: [CustomTooltipDirective],
 })
 export class SharedModule {}
