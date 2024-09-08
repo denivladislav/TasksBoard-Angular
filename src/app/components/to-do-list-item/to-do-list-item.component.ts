@@ -12,9 +12,17 @@ import { ButtonComponent } from '../../ui/button/button.component';
 })
 export class ToDoListItemComponent {
     @Input() toDoListItem!: ToDoListItem;
+    @Input() isSelected = false;
+
+    @Output() setSelectedItemIdEvent = new EventEmitter<number>();
     @Output() deleteToDoListItemEvent = new EventEmitter<number>();
 
-    public deleteToDoListItem(id: number) {
+    public setSelectedItemId(id: number) {
+        this.setSelectedItemIdEvent.emit(id);
+    }
+
+    public deleteToDoListItem(e: Event, id: number) {
+        e.stopPropagation();
         this.deleteToDoListItemEvent.emit(id);
     }
 }

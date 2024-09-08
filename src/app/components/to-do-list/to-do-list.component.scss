@@ -1,16 +1,26 @@
-.task-list-section {
+.task-list {
+    display: flex;
+    gap: 1rem;
     padding-bottom: 3rem;
 }
 
-.task-list__loading-spinner {
+.task-list__list {
+    flex: 2 0;
+}
+
+.task-list__description {
+    flex: 1 0;
+}
+
+.loading-spinner {
     top: 2rem;
     margin: auto;
 }
 
 .add-new-todo-form {
     display: flex;
-    align-items: baseline;
-    gap: 2rem;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .add-new-todo-form__formfield {

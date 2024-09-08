@@ -1,1 +1,1 @@
-<button mat-flat-button [disabled]="disabled" class="button" (click)="buttonClick.emit()">{{ title }}</button>
+<button mat-flat-button [disabled]="disabled" class="button" (click)="buttonClick.emit($event)">{{ title }}</button>

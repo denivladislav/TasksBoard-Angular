@@ -3,12 +3,15 @@
         <h1>Todo list</h1>
     </header>
     @if (isLoading) {
-        <mat-spinner class="task-list__loading-spinner"></mat-spinner>
+        <mat-spinner class="loading-spinner"></mat-spinner>
     } @else {
-        <section class="task-list-section">
-            <ul>
-                <app-to-do-list-item *ngFor="let toDoListItem of toDoList" [toDoListItem]="toDoListItem" (deleteToDoListItemEvent)="deleteItem($event)"></app-to-do-list-item>
-            </ul>
+        <section class="task-list">
+            <ul class="task-list__list">
+                <app-to-do-list-item *ngFor="let toDoListItem of toDoList" [toDoListItem]="toDoListItem" [isSelected]="getIsItemSelected(toDoListItem.id)" (deleteToDoListItemEvent)="deleteItem($event)" (setSelectedItemIdEvent)="setSelectedItemId($event)"></app-to-do-list-item>
+            </ul> 
+            @if (selectedItem) {
+                <app-to-do-list-item-description [toDoListItem]="selectedItem" class="task-list__description"></app-to-do-list-item-description>
+            }
         </section>
         <section>
             <form class="add-new-todo-form">
@@ -18,10 +21,10 @@
                         <mat-error>Name is <strong>required</strong></mat-error>
                     }
                 </mat-form-field>
-                <app-button [disabled]="itemInputFormControl.invalid" (buttonClick)="addItem(itemInputFormControl.value!)" title="Add" class="button__add"></app-button>
-                
-                <!-- This button works incorrectly. It adds new item on click despite being disabled. -->
-                <!-- <app-button [disabled]="true" (click)="addItem(itemInputFormControl.value!)" title="Another Add" class="button__add"></app-button> -->
+                <mat-form-field class="add-new-todo-form__formfield">
+                    <textarea matInput [formControl]="descriptionInputFormControl" type="text" placeholder="Add description" name="descriptionInput"></textarea>
+                </mat-form-field>
+                <app-button [disabled]="itemInputFormControl.invalid" (buttonClick)="addItem({text: itemInputFormControl.value!, description: descriptionInputFormControl.value!})" title="Add" class="button__add"></app-button>
             </form>
         </section>
     }
