@@ -1,11 +1,14 @@
 .task-list {
     display: flex;
     gap: 1rem;
-    padding-bottom: 3rem;
+    margin-bottom: 3rem;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .task-list__list {
     flex: 2 0;
+    overflow-y: auto;
 }
 
 .task-list__description {

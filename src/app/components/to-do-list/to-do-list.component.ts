@@ -76,11 +76,11 @@ export class ToDoListComponent implements OnInit {
         this.toDoList = this.toDoList.filter((item) => item.id !== id);
     }
 
-    public addItem({ text, description }: { text: string; description: string }) {
+    public addItem({ text, description }: Omit<ToDoListItem, 'id'>) {
         const itemIds = this.toDoList.map((toDoListItem) => toDoListItem.id);
         const newItemId = itemIds.length > 0 ? Math.max(...itemIds) + 1 : 0;
         const sanitizedText = text.trim();
-        const sanitizedDescription = description.trim();
+        const sanitizedDescription = description?.trim();
         this.toDoList.push({
             id: newItemId,
             text: sanitizedText,
