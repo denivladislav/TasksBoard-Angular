@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, FormControl, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -88,14 +88,15 @@ export class ToDoListComponent implements OnInit {
             text: sanitizedText,
             description: sanitizedDescription,
         });
-        this.itemInputFormControl.reset();
-        this.descriptionInputFormControl.reset();
+        this.toDoListForm.reset();
     }
 
     public isLoading = true;
 
-    public itemInputFormControl = new FormControl('', [Validators.required, noWhitespaceValidator]);
-    public descriptionInputFormControl = new FormControl('');
+    public toDoListForm = new FormGroup({
+        name: new FormControl('', [Validators.required, noWhitespaceValidator]),
+        description: new FormControl(''),
+    });
 
     ngOnInit() {
         setTimeout(() => (this.isLoading = false), 1000);

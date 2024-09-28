@@ -16,15 +16,15 @@
         <section>
             <form class="add-new-todo-form">
                 <mat-form-field class="add-new-todo-form__formfield">
-                    <input matInput [formControl]="itemInputFormControl" type="text" placeholder="Add your new todo" name="itemInput" />
-                    @if (itemInputFormControl.hasError('required') || itemInputFormControl.hasError('whitespace')) {
+                    <input matInput [formControl]="toDoListForm.controls.name" type="text" placeholder="Add your new todo" name="name" />
+                    @if (toDoListForm.controls.name.hasError('required') || toDoListForm.controls.name.hasError('whitespace')) {
                         <mat-error>Name is <strong>required</strong></mat-error>
                     }
                 </mat-form-field>
                 <mat-form-field class="add-new-todo-form__formfield">
-                    <textarea matInput [formControl]="descriptionInputFormControl" type="text" placeholder="Add description" name="descriptionInput"></textarea>
+                    <textarea matInput [formControl]="toDoListForm.controls.description" type="text" placeholder="Add description" name="descriptionInput"></textarea>
                 </mat-form-field>
-                <app-button appCustomTooltip="Add new todo item" [disabled]="itemInputFormControl.invalid" (buttonClick)="addItem({text: itemInputFormControl.value!, description: descriptionInputFormControl.value!})" title="Add" class="button__add"></app-button>
+                <app-button appCustomTooltip="Add new todo item" [disabled]="toDoListForm.controls.name.invalid" (buttonClick)="addItem({text: toDoListForm.controls.name.value!, description: toDoListForm.controls.description.value!})" title="Add" class="button__add"></app-button>
             </form>
         </section>
     }
