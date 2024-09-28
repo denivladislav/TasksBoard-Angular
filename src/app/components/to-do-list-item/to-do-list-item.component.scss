@@ -6,3 +6,11 @@
     align-items: center;
     background-color: whitesmoke;
 }
+
+.to-do-list-item:hover {
+    cursor: pointer;
+}
+
+.to-do-list-item--selected {
+    background: lightblue;
+}

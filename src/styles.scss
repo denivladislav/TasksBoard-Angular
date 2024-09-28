@@ -19,3 +19,15 @@ main {
 ul {
     padding: 0;
 }
+
+.tooltip {
+    position: absolute;
+    max-width: 150px;
+    font-size: 14px;
+    text-align: center;
+    color: white;
+    padding: 3px 8px;
+    background: black;
+    border-radius: 4px;
+    z-index: 1000;
+}

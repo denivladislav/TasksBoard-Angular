@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ButtonModule } from '../button/button.module';
+import { CustomTooltipDirective } from '../../directives/custom-tooltip.directive';
 
 @NgModule({
-    declarations: [],
-    imports: [CommonModule, ButtonModule],
-    exports: [ButtonModule],
+    declarations: [CustomTooltipDirective],
+    exports: [CustomTooltipDirective],
 })
 export class SharedModule {}

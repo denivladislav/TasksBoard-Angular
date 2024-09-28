@@ -1,16 +1,29 @@
-.task-list-section {
-    padding-bottom: 3rem;
+.task-list {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
-.task-list__loading-spinner {
+.task-list__list {
+    flex: 2 0;
+    overflow-y: auto;
+}
+
+.task-list__description {
+    flex: 1 0;
+}
+
+.loading-spinner {
     top: 2rem;
     margin: auto;
 }
 
 .add-new-todo-form {
     display: flex;
-    align-items: baseline;
-    gap: 2rem;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .add-new-todo-form__formfield {
