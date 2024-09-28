@@ -4,7 +4,7 @@ import { Directive, ElementRef, HostListener, Input, Renderer2, OnDestroy } from
     selector: '[appCustomTooltip]',
 })
 export class CustomTooltipDirective implements OnDestroy {
-    @Input() tooltipText: string | null = null;
+    @Input() appCustomTooltip: string | null = null;
 
     constructor(
         private el: ElementRef,
@@ -15,12 +15,12 @@ export class CustomTooltipDirective implements OnDestroy {
     private _offset = 10;
 
     private _addTooltip() {
-        if (!this.tooltipText) {
+        if (!this.appCustomTooltip) {
             return;
         }
 
         this._tooltipEl = this.renderer.createElement('span') as HTMLElement;
-        this.renderer.appendChild(this._tooltipEl, this.renderer.createText(this.tooltipText));
+        this.renderer.appendChild(this._tooltipEl, this.renderer.createText(this.appCustomTooltip));
         this.renderer.appendChild(document.body, this._tooltipEl);
 
         const host = this.el.nativeElement.getBoundingClientRect();
@@ -40,7 +40,7 @@ export class CustomTooltipDirective implements OnDestroy {
     }
 
     @HostListener('mouseenter') onMouseEnter() {
-        if (!this.tooltipText) {
+        if (!this.appCustomTooltip) {
             return;
         }
 
@@ -48,7 +48,7 @@ export class CustomTooltipDirective implements OnDestroy {
     }
 
     @HostListener('mouseleave') onMouseLeave() {
-        if (!this.tooltipText) {
+        if (!this.appCustomTooltip) {
             return;
         }
 

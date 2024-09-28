@@ -24,7 +24,7 @@
                 <mat-form-field class="add-new-todo-form__formfield">
                     <textarea matInput [formControl]="descriptionInputFormControl" type="text" placeholder="Add description" name="descriptionInput"></textarea>
                 </mat-form-field>
-                <app-button appCustomTooltip tooltipText="Add new todo item" [disabled]="itemInputFormControl.invalid" (buttonClick)="addItem({text: itemInputFormControl.value!, description: descriptionInputFormControl.value!})" title="Add" class="button__add"></app-button>
+                <app-button appCustomTooltip="Add new todo item" [disabled]="itemInputFormControl.invalid" (buttonClick)="addItem({text: itemInputFormControl.value!, description: descriptionInputFormControl.value!})" title="Add" class="button__add"></app-button>
             </form>
         </section>
     }
