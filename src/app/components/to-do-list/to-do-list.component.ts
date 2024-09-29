@@ -12,13 +12,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import type { ToDoListItem } from '../../services/to-do-list.service.types';
 import { ToDoListItemComponent } from '../to-do-list-item/to-do-list-item.component';
 import { noWhitespaceValidator } from '../../utils/validators';
 import { ButtonComponent } from '../../ui/button/button.component';
 import { ToDoListItemDescriptionComponent } from '../to-do-list-item-description/to-do-list-item-description.component';
 import { SharedModule } from '../../modules/shared/shared.module';
-import { ToDoListService } from '../../services/to-do-list.service';
+import { ToDoListService } from '../../services/to-do-list-service/to-do-list.service';
+import { ToastService } from '../../services/toast-service/toast.service';
 
 @Component({
     selector: 'app-to-do-list',
@@ -43,7 +43,10 @@ export class ToDoListComponent implements OnInit {
     private _isLoading = true;
     private _isEditing = false;
 
-    constructor(private _toDoListService: ToDoListService) {}
+    constructor(
+        private _toDoListService: ToDoListService,
+        private _toastService: ToastService,
+    ) {}
 
     public get isLoading() {
         return this._isLoading;
@@ -82,14 +85,9 @@ export class ToDoListComponent implements OnInit {
         formDirective.resetForm();
     }
 
-    public addItem(item: Omit<ToDoListItem, 'id'>) {
-        this._toDoListService.addItem(item);
-
-        this.addItemForm.reset();
-    }
-
     public deleteItem(id: number) {
         this._toDoListService.deleteItem(id);
+        this._toastService.addToast('negative');
     }
 
     public addItemForm = new FormGroup({
@@ -110,6 +108,7 @@ export class ToDoListComponent implements OnInit {
             title: this.addItemForm.value.title!,
             description: this.addItemForm.value.description!,
         });
+        this._toastService.addToast('positive');
 
         formDirective.resetForm();
     }
@@ -118,6 +117,7 @@ export class ToDoListComponent implements OnInit {
         this._toDoListService.patchItem({
             title: this.editItemForm.value.title!,
         });
+        this._toastService.addToast('info');
 
         this.setIsEditing(false);
         formDirective.resetForm();

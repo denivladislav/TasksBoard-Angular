@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ToDoListItem } from '../../services/to-do-list.service.types';
+import { ToDoListItem } from '../../services/to-do-list-service/to-do-list.service.types';
 import { ButtonComponent } from '../../ui/button/button.component';
 import { SharedModule } from '../../modules/shared/shared.module';
 
