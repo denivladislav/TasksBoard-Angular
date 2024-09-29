@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { ToDoListItem } from '../to-do-list-item/to-do-list-item.types';
+import { ToDoListItem } from '../../services/to-do-list.service.types';
 
 @Component({
     selector: 'app-to-do-list-item-description',

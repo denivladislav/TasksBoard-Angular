@@ -4,23 +4,20 @@
 
     .button,
     .button.button-mdc {
-        border: none;
-        color: white;
-
         &[disabled] {
             opacity: 0.5;
         }
     }
 }
 
-:host.button__add {
+:host.button__positive {
     .button,
     .button.button-mdc {
         background-color: green;
     }
 }
 
-:host.button__delete {
+:host.button__negative {
     .button,
     .button.button-mdc {
         background-color: red;

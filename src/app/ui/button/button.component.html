@@ -1,1 +1,7 @@
-<button mat-flat-button [disabled]="disabled" class="button" (click)="buttonClick.emit($event)">{{ title }}</button>
+<button *ngIf="buttonType === 'flat'" mat-flat-button [disabled]="disabled" [type]="type" class="button" (click)="buttonClick.emit($event)">
+    {{ title }}
+</button>
+
+<button *ngIf="buttonType === 'stroked'" mat-stroked-button [disabled]="disabled" [type]="type" class="button" (click)="buttonClick.emit($event)">
+    {{ title }}
+</button>

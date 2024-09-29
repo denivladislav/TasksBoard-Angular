@@ -7,24 +7,73 @@
     } @else {
         <section class="task-list">
             <ul class="task-list__list">
-                <app-to-do-list-item *ngFor="let toDoListItem of toDoList" [toDoListItem]="toDoListItem" [isSelected]="getIsItemSelected(toDoListItem.id)" (deleteToDoListItemEvent)="deleteItem($event)" (setSelectedItemIdEvent)="setSelectedItemId($event)"></app-to-do-list-item>
-            </ul> 
-            @if (selectedItem) {
-                <app-to-do-list-item-description [toDoListItem]="selectedItem" class="task-list__description"></app-to-do-list-item-description>
+                <app-to-do-list-item 
+                    *ngFor="let toDoListItem of toDoList"
+                    [toDoListItem]="toDoListItem"
+                    [isSelected]="getIsItemSelected(toDoListItem.id)"
+                    (deleteToDoListItemEvent)="deleteItem($event)"
+                    (setSelectedItemIdEvent)="setSelectedItemId($event); setIsEditing(false)"
+                    (setIsEditingEvent)="setIsEditing($event); setEditItemFormDefaultValue()"
+                ></app-to-do-list-item>
+            </ul>
+            @if (selectedItem && !isEditing) {
+                <app-to-do-list-item-description
+                    class="task-list__description"
+                    [toDoListItem]="selectedItem"
+                ></app-to-do-list-item-description>
+            }
+            @if (selectedItem && isEditing) {
+                <form #formDirective="ngForm" [formGroup]="editItemForm" class="edit-item-form" (ngSubmit)="onEditItemFormSubmit(formDirective)">
+                    <mat-form-field>
+                        <input 
+                            matInput 
+                            type="text" 
+                            placeholder="New todo item title" 
+                            name="editTitle"
+                            [formControl]="editItemForm.controls.title"
+                        />
+                        @if (editItemForm.controls.title.hasError('required') || editItemForm.controls.title.hasError('whitespace')) {
+                            <mat-error>Title is <strong>required</strong></mat-error>
+                        }
+                    </mat-form-field>
+                    <div class="edit-item-form__button-group">
+                        <app-button
+                            type="button"
+                            title="Cancel" 
+                            appCustomTooltip="Cancel editing" 
+                            [buttonType]="'stroked'"
+                            (buttonClick)="cancelEditing(formDirective)"
+                        ></app-button>
+                        <app-button
+                            type="submit"
+                            title="Save" 
+                            class="button__positive"
+                            appCustomTooltip="Save new item todo" 
+                            [disabled]="editItemForm.controls.title.invalid"
+                        ></app-button>
+                    </div>
+                </form>
             }
         </section>
+
         <section>
-            <form class="add-new-todo-form">
-                <mat-form-field class="add-new-todo-form__formfield">
-                    <input matInput [formControl]="toDoListForm.controls.name" type="text" placeholder="Add your new todo" name="name" />
-                    @if (toDoListForm.controls.name.hasError('required') || toDoListForm.controls.name.hasError('whitespace')) {
-                        <mat-error>Name is <strong>required</strong></mat-error>
+            <form #formDirective="ngForm" [formGroup]="addItemForm" class="add-item-form" (ngSubmit)="onAddItemFormSubmit(formDirective)">
+                <mat-form-field class="add-item-form__formfield">
+                    <input matInput [formControl]="addItemForm.controls.title" type="text" placeholder="Add your new todo" name="titleInput" />
+                    @if (addItemForm.controls.title.hasError('required') || addItemForm.controls.title.hasError('whitespace')) {
+                        <mat-error>Title is <strong>required</strong></mat-error>
                     }
                 </mat-form-field>
-                <mat-form-field class="add-new-todo-form__formfield">
-                    <textarea matInput [formControl]="toDoListForm.controls.description" type="text" placeholder="Add description" name="descriptionInput"></textarea>
+                <mat-form-field class="add-item-form__formfield">
+                    <textarea matInput [formControl]="addItemForm.controls.description" type="text" placeholder="Add description" name="descriptionInput"></textarea>
                 </mat-form-field>
-                <app-button appCustomTooltip="Add new todo item" [disabled]="toDoListForm.controls.name.invalid" (buttonClick)="addItem({text: toDoListForm.controls.name.value!, description: toDoListForm.controls.description.value!})" title="Add" class="button__add"></app-button>
+                <app-button 
+                    title="Add" 
+                    type="submit"
+                    class="button__positive"
+                    appCustomTooltip="Add new todo item" 
+                    [disabled]="addItemForm.controls.title.invalid"  
+                ></app-button>
             </form>
         </section>
     }
