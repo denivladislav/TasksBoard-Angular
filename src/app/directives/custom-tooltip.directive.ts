@@ -35,6 +35,10 @@ export class CustomTooltipDirective implements OnDestroy {
     }
 
     private _removeTooltip() {
+        if (!this._tooltipEl) {
+            return;
+        }
+
         this.renderer.removeChild(this.el.nativeElement, this._tooltipEl);
         this._tooltipEl = null;
     }
