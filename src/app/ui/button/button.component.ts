@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButton, MatButtonModule } from '@angular/material/button';
+import { ButtonType } from './button.component.types';
 
 @Component({
     selector: 'app-button',
@@ -10,9 +11,13 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
     styleUrl: './button.component.scss',
 })
 export class ButtonComponent extends MatButton {
-    @Input() title = '';
-    @Input() buttonType: 'flat' | 'stroked' = 'flat';
-    @Input() type = 'submit';
+    @Input() public title = '';
+    @Input() public buttonType: ButtonType = 'flat';
+    @Input() public type = 'submit';
 
-    @Output() buttonClick = new EventEmitter<Event>();
+    @Output() public clickEvent = new EventEmitter<Event>();
+
+    public click(e: Event) {
+        this.clickEvent.emit(e);
+    }
 }

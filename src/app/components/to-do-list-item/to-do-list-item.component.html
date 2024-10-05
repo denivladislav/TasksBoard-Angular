@@ -6,7 +6,7 @@
     {{ toDoListItem!.title }}
     <app-button 
         appCustomTooltip="Delete todo item" 
-        (buttonClick)="deleteToDoListItem($event, toDoListItem!.id)" 
+        (click)="deleteToDoListItem($event, toDoListItem!.id)" 
         class="button__negative" 
         title="Delete"></app-button>
 </li>
