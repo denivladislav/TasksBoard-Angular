@@ -12,13 +12,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ToDoListItemComponent } from '../to-do-list-item/to-do-list-item.component';
-import { noWhitespaceValidator } from '../../utils/validators';
-import { ButtonComponent } from '../../ui/button/button.component';
-import { ToDoListItemDescriptionComponent } from '../to-do-list-item-description/to-do-list-item-description.component';
-import { SharedModule } from '../../modules/shared/shared.module';
-import { ToDoListService } from '../../services/to-do-list-service/to-do-list.service';
-import { ToastService } from '../../services/toast-service/toast.service';
+import { ToDoListService } from '../../services';
+import { ToastService } from '../../services';
+import { ToDoListItemComponent } from '../to-do-list-item';
+import { noWhitespaceValidator } from '../../utils';
+import { ButtonComponent } from '../../ui';
+import { ToDoListItemDescriptionComponent } from '../to-do-list-item-description';
+import { SharedModule } from '../../modules';
 
 @Component({
     selector: 'app-to-do-list',

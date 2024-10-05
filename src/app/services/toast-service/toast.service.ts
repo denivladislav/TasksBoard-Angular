@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ToastComponent } from '../../components/toast/toast.component';
 import { ToastType } from './toast.service.types';
+import { ToastComponent } from '../../components';
 
 @Injectable({
     providedIn: 'root',

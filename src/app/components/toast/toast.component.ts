@@ -1,6 +1,6 @@
 import { Component, Inject, inject } from '@angular/core';
 import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
-import { ToastData } from '../../services/toast-service/toast.service.types';
+import { ToastData } from '../../services';
 
 @Component({
     selector: 'app-toast',
