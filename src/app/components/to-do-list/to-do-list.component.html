@@ -3,7 +3,7 @@
         <h1>Todo list</h1>
     </header>
     @if (isLoading) {
-        <mat-spinner class="loading-spinner"></mat-spinner>
+        <app-loading-spinner></app-loading-spinner>
     } @else {
         <section class="task-list">
             <ul class="task-list__list">
