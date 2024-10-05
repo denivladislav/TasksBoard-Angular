@@ -12,12 +12,12 @@ import { SharedModule } from '../../modules/shared/shared.module';
     styleUrls: ['../../app.component.scss', './to-do-list-item.component.scss'],
 })
 export class ToDoListItemComponent {
-    @Input() toDoListItem!: ToDoListItem;
-    @Input() isSelected = false;
+    @Input() public toDoListItem!: ToDoListItem;
+    @Input() public isSelected = false;
 
-    @Output() setSelectedItemIdEvent = new EventEmitter<number>();
-    @Output() setIsEditingEvent = new EventEmitter<boolean>();
-    @Output() deleteToDoListItemEvent = new EventEmitter<number>();
+    @Output() public setSelectedItemIdEvent = new EventEmitter<number>();
+    @Output() public setIsEditingEvent = new EventEmitter<boolean>();
+    @Output() public deleteToDoListItemEvent = new EventEmitter<number>();
 
     public setSelectedItemId(id: number) {
         this.setSelectedItemIdEvent.emit(id);
