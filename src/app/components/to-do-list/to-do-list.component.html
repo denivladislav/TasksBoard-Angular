@@ -39,18 +39,20 @@
                     <div class="edit-item-form__button-group">
                         <app-button
                             type="button"
-                            title="Cancel" 
                             appCustomTooltip="Cancel editing" 
                             [buttonType]="'stroked'"
                             (click)="cancelEditing(formDirective)"
-                        ></app-button>
+                        >
+                            Cancel
+                        </app-button>
                         <app-button
                             type="submit"
-                            title="Save" 
                             class="button__positive"
                             appCustomTooltip="Save new item todo" 
                             [disabled]="editItemForm.controls.title.invalid"
-                        ></app-button>
+                        >
+                            Save
+                        </app-button>
                     </div>
                 </form>
             }
@@ -68,12 +70,13 @@
                     <textarea matInput [formControl]="addItemForm.controls.description" type="text" placeholder="Add description" name="descriptionInput"></textarea>
                 </mat-form-field>
                 <app-button 
-                    title="Add" 
                     type="submit"
                     class="button__positive"
                     appCustomTooltip="Add new todo item" 
                     [disabled]="addItemForm.controls.title.invalid"  
-                ></app-button>
+                >
+                    Add
+                </app-button>
             </form>
         </section>
     }
