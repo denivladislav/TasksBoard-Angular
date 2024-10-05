@@ -4,7 +4,7 @@ import { Directive, ElementRef, HostListener, Input, Renderer2, OnDestroy } from
     selector: '[appCustomTooltip]',
 })
 export class CustomTooltipDirective implements OnDestroy {
-    @Input() appCustomTooltip: string | null = null;
+    @Input() public appCustomTooltip: string | null = null;
 
     constructor(
         private el: ElementRef,
@@ -35,6 +35,10 @@ export class CustomTooltipDirective implements OnDestroy {
     }
 
     private _removeTooltip() {
+        if (!this._tooltipEl) {
+            return;
+        }
+
         this.renderer.removeChild(this.el.nativeElement, this._tooltipEl);
         this._tooltipEl = null;
     }

@@ -1,5 +1,5 @@
 export interface ToDoListItem {
     id: number;
-    text: string;
+    title: string;
     description?: string;
 }

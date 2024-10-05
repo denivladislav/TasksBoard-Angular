@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ToDoListItem } from './to-do-list-item.types';
-import { ButtonComponent } from '../../ui/button/button.component';
-import { SharedModule } from '../../modules/shared/shared.module';
+import { ButtonComponent } from '../../ui';
+import { SharedModule } from '../../modules';
+import { ToDoListItem } from '../../services';
 
 @Component({
     selector: 'app-to-do-list-item',
@@ -12,14 +12,19 @@ import { SharedModule } from '../../modules/shared/shared.module';
     styleUrls: ['../../app.component.scss', './to-do-list-item.component.scss'],
 })
 export class ToDoListItemComponent {
-    @Input() toDoListItem!: ToDoListItem;
-    @Input() isSelected = false;
+    @Input() public toDoListItem!: ToDoListItem;
+    @Input() public isSelected = false;
 
-    @Output() setSelectedItemIdEvent = new EventEmitter<number>();
-    @Output() deleteToDoListItemEvent = new EventEmitter<number>();
+    @Output() public setSelectedItemIdEvent = new EventEmitter<number>();
+    @Output() public setIsEditingEvent = new EventEmitter<boolean>();
+    @Output() public deleteToDoListItemEvent = new EventEmitter<number>();
 
     public setSelectedItemId(id: number) {
         this.setSelectedItemIdEvent.emit(id);
+    }
+
+    public setIsEditing(isEditing: boolean) {
+        this.setIsEditingEvent.emit(isEditing);
     }
 
     public deleteToDoListItem(e: Event, id: number) {

@@ -31,3 +31,15 @@ ul {
     border-radius: 4px;
     z-index: 1000;
 }
+
+.snackbar__positive .mdc-snackbar__surface {
+    background-color: green !important;
+}
+
+.snackbar__negative .mdc-snackbar__surface {
+    background: red !important;
+}
+
+.snackbar__info .mdc-snackbar__surface {
+    background: darkcyan !important;
+}

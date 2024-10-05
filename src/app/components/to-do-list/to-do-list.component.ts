@@ -1,16 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, FormControl, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
+import {
+    FormsModule,
+    FormControl,
+    Validators,
+    ReactiveFormsModule,
+    FormGroup,
+    FormGroupDirective,
+} from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import type { ToDoListItem } from '../to-do-list-item/to-do-list-item.types';
-import { ToDoListItemComponent } from '../to-do-list-item/to-do-list-item.component';
-import { noWhitespaceValidator } from '../../utils/validators';
-import { ButtonComponent } from '../../ui/button/button.component';
-import { ToDoListItemDescriptionComponent } from '../to-do-list-item-description/to-do-list-item-description.component';
-import { SharedModule } from '../../modules/shared/shared.module';
+import { ToDoListService } from '../../services';
+import { ToastService } from '../../services';
+import { ToDoListItemComponent } from '../to-do-list-item';
+import { noWhitespaceValidator } from '../../utils';
+import { ButtonComponent } from '../../ui';
+import { ToDoListItemDescriptionComponent } from '../to-do-list-item-description';
+import { SharedModule } from '../../modules';
 
 @Component({
     selector: 'app-to-do-list',
@@ -32,73 +40,90 @@ import { SharedModule } from '../../modules/shared/shared.module';
     styleUrls: ['../../app.component.scss', './to-do-list.component.scss'],
 })
 export class ToDoListComponent implements OnInit {
-    private _selectedItemId: number | null = null;
+    private _isLoading = true;
+    private _isEditing = false;
 
-    public toDoList: ToDoListItem[] = [
-        {
-            id: 0,
-            text: 'Task1',
-            description:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        },
-        {
-            id: 1,
-            text: 'Task2',
-        },
-        {
-            id: 2,
-            text: 'Task3',
-        },
-    ];
+    constructor(
+        private _toDoListService: ToDoListService,
+        private _toastService: ToastService,
+    ) {}
 
-    public get selectedItemId() {
-        return this._selectedItemId;
+    public get isLoading() {
+        return this._isLoading;
+    }
+
+    public get isEditing() {
+        return this._isEditing;
+    }
+
+    public setIsLoading(isLoading: boolean) {
+        this._isLoading = isLoading;
+    }
+
+    public setIsEditing(isEditing: boolean) {
+        this._isEditing = isEditing;
+    }
+
+    public get toDoList() {
+        return this._toDoListService.toDoList;
     }
 
     public get selectedItem() {
-        return this.toDoList.find((item) => item.id === this.selectedItemId);
-    }
-
-    public clearSelectedItemId() {
-        this._selectedItemId = null;
+        return this._toDoListService.selectedItem;
     }
 
     public getIsItemSelected(id: number) {
-        return this._selectedItemId === id;
+        return this._toDoListService.selectedItemId === id;
     }
 
     public setSelectedItemId(id: number) {
-        this._selectedItemId = id;
+        this._toDoListService.setSelectedItemId(id);
+    }
+
+    public cancelEditing(formDirective: FormGroupDirective) {
+        this.setIsEditing(false);
+        formDirective.resetForm();
     }
 
     public deleteItem(id: number) {
-        if (this.selectedItemId === id) {
-            this.clearSelectedItemId();
-        }
-        this.toDoList = this.toDoList.filter((item) => item.id !== id);
+        this._toDoListService.deleteItem(id);
+        this._toastService.addToast('negative');
     }
 
-    public addItem({ text, description }: Omit<ToDoListItem, 'id'>) {
-        const itemIds = this.toDoList.map((toDoListItem) => toDoListItem.id);
-        const newItemId = itemIds.length > 0 ? Math.max(...itemIds) + 1 : 0;
-        const sanitizedText = text.trim();
-        const sanitizedDescription = description?.trim();
-        this.toDoList.push({
-            id: newItemId,
-            text: sanitizedText,
-            description: sanitizedDescription,
-        });
-        this.toDoListForm.reset();
-    }
-
-    public isLoading = true;
-
-    public toDoListForm = new FormGroup({
-        name: new FormControl('', [Validators.required, noWhitespaceValidator]),
+    public addItemForm = new FormGroup({
+        title: new FormControl('', [Validators.required, noWhitespaceValidator]),
         description: new FormControl(''),
     });
 
+    public editItemForm = new FormGroup({
+        title: new FormControl('', [Validators.required, noWhitespaceValidator]),
+    });
+
+    public setEditItemFormDefaultValue() {
+        this.editItemForm.controls.title.patchValue(this.selectedItem?.title || '');
+    }
+
+    public onAddItemFormSubmit(formDirective: FormGroupDirective) {
+        this._toDoListService.addItem({
+            title: this.addItemForm.value.title!,
+            description: this.addItemForm.value.description!,
+        });
+        this._toastService.addToast('positive');
+
+        formDirective.resetForm();
+    }
+
+    public onEditItemFormSubmit(formDirective: FormGroupDirective) {
+        this._toDoListService.patchItem({
+            title: this.editItemForm.value.title!,
+        });
+        this._toastService.addToast('info');
+
+        this.setIsEditing(false);
+        formDirective.resetForm();
+    }
+
     ngOnInit() {
-        setTimeout(() => (this.isLoading = false), 1000);
+        setTimeout(() => this.setIsLoading(false), 1000);
     }
 }
