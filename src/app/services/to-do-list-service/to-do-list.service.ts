@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ToDoListItem } from './to-do-list.service.types';
+import { ToDoListItem, ToDoListItemStatus } from './to-do-list.service.types';
 
 @Injectable({
     providedIn: 'root',
@@ -11,14 +11,17 @@ export class ToDoListService {
             title: 'Task1',
             description:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            status: 'inProgress',
         },
         {
             id: 1,
             title: 'Task2',
+            status: 'completed',
         },
         {
             id: 2,
             title: 'Task3',
+            status: 'inProgress',
         },
     ];
 
@@ -57,6 +60,19 @@ export class ToDoListService {
         this._editedItemId = id;
     }
 
+    public setItemStatus(item: ToDoListItem, status: ToDoListItemStatus) {
+        item.status = status;
+    }
+
+    public toggleItemStatus(id: number) {
+        const item = this._toDoList.find((item) => item.id === id)!;
+        if (item.status === 'completed') {
+            this.setItemStatus(item, 'inProgress');
+        } else {
+            this.setItemStatus(item, 'completed');
+        }
+    }
+
     public clearSelectedItemId() {
         this._selectedItemId = null;
     }
@@ -65,17 +81,18 @@ export class ToDoListService {
         this._editedItemId = null;
     }
 
-    public addItem({ title, description }: Omit<ToDoListItem, 'id'>) {
+    public addItem({ title, description }: Omit<ToDoListItem, 'id' | 'status'>) {
         const newItemId = this.itemIds.length > 0 ? Math.max(...this.itemIds) + 1 : 0;
 
         this._toDoList.push({
             id: newItemId,
             title: title.trim(),
             description: description?.trim(),
+            status: 'inProgress',
         });
     }
 
-    public patchItem({ title }: Omit<ToDoListItem, 'id'>) {
+    public patchItem({ title }: { title: string }) {
         this.selectedItem!.title = title;
     }
 

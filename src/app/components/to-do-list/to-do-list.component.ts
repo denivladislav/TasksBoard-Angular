@@ -74,8 +74,17 @@ export class ToDoListComponent implements OnInit {
         return this._toDoListService.selectedItemId === id;
     }
 
+    public getIsItemChecked(id: number) {
+        const item = this._toDoListService.toDoList.find((item) => item.id === id)!;
+        return item.status === 'completed';
+    }
+
     public setSelectedItemId(id: number) {
         this._toDoListService.setSelectedItemId(id);
+    }
+
+    public toggleItemStatus(id: number) {
+        this._toDoListService.toggleItemStatus(id);
     }
 
     public cancelEditing(formDirective: FormGroupDirective) {

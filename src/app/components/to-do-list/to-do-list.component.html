@@ -9,11 +9,13 @@
             <ul class="task-list__list">
                 <app-to-do-list-item 
                     *ngFor="let toDoListItem of toDoList"
-                    [toDoListItem]="toDoListItem"
+                    [item]="toDoListItem"
                     [isSelected]="getIsItemSelected(toDoListItem.id)"
-                    (deleteToDoListItemEvent)="deleteItem($event)"
+                    [isChecked]="getIsItemChecked(toDoListItem.id)"
+                    (deleteItemEvent)="deleteItem($event)"
                     (setSelectedItemIdEvent)="setSelectedItemId($event); setIsEditing(false)"
                     (setIsEditingEvent)="setIsEditing($event); setEditItemFormDefaultValue()"
+                    (toggleItemStatusEvent)="toggleItemStatus($event)"
                 ></app-to-do-list-item>
             </ul>
             @if (selectedItem && !isEditing) {
