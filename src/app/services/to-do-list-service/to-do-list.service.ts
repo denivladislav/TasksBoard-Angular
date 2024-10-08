@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ToDoListItem, ToDoListItemStatus } from './to-do-list.service.types';
+import { STATUS_OPTIONS, ToDoListItem, ToDoListItemStatus } from './to-do-list.service.types';
 
 @Injectable({
     providedIn: 'root',
@@ -11,17 +11,17 @@ export class ToDoListService {
             title: 'Task1',
             description:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            status: 'inProgress',
+            status: STATUS_OPTIONS.inProgress,
         },
         {
             id: 1,
             title: 'Task2',
-            status: 'completed',
+            status: STATUS_OPTIONS.completed,
         },
         {
             id: 2,
             title: 'Task3',
-            status: 'inProgress',
+            status: STATUS_OPTIONS.inProgress,
         },
     ];
 
@@ -66,10 +66,10 @@ export class ToDoListService {
 
     public toggleItemStatus(id: number) {
         const item = this._toDoList.find((item) => item.id === id)!;
-        if (item.status === 'completed') {
-            this.setItemStatus(item, 'inProgress');
+        if (item.status === STATUS_OPTIONS.completed) {
+            this.setItemStatus(item, STATUS_OPTIONS.inProgress);
         } else {
-            this.setItemStatus(item, 'completed');
+            this.setItemStatus(item, STATUS_OPTIONS.completed);
         }
     }
 
@@ -88,7 +88,7 @@ export class ToDoListService {
             id: newItemId,
             title: title.trim(),
             description: description?.trim(),
-            status: 'inProgress',
+            status: STATUS_OPTIONS.inProgress,
         });
     }
 

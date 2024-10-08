@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ToDoListService } from '../../services';
 import { ToastService } from '../../services';
@@ -18,6 +19,8 @@ import { noWhitespaceValidator } from '../../utils';
 import { ButtonComponent } from '../../ui';
 import { ToDoListItemDescriptionComponent } from '../to-do-list-item-description';
 import { SharedModule } from '../../modules';
+import { STATUS_OPTIONS } from '../../services/to-do-list-service/to-do-list.service.types';
+import { ALL_SELECT_OPTION } from './to-do-list.component.const';
 
 @Component({
     selector: 'app-to-do-list',
@@ -29,6 +32,7 @@ import { SharedModule } from '../../modules';
         MatFormFieldModule,
         MatButtonModule,
         MatInputModule,
+        MatSelectModule,
         ToDoListItemComponent,
         ToDoListItemDescriptionComponent,
         ButtonComponent,
@@ -40,6 +44,9 @@ import { SharedModule } from '../../modules';
 export class ToDoListComponent implements OnInit {
     private _isLoading = true;
     private _isEditing = false;
+
+    public itemSelectOptions = [ALL_SELECT_OPTION, ...Object.values(STATUS_OPTIONS)];
+    public selectedOption = this.itemSelectOptions[0];
 
     constructor(
         private _toDoListService: ToDoListService,
@@ -66,6 +73,13 @@ export class ToDoListComponent implements OnInit {
         return this._toDoListService.toDoList;
     }
 
+    public get filteredToDoList() {
+        if (this.selectedOption === ALL_SELECT_OPTION) {
+            return this.toDoList;
+        }
+        return this.toDoList.filter((item) => item.status === this.selectedOption);
+    }
+
     public get selectedItem() {
         return this._toDoListService.selectedItem;
     }
@@ -76,7 +90,7 @@ export class ToDoListComponent implements OnInit {
 
     public getIsItemChecked(id: number) {
         const item = this._toDoListService.toDoList.find((item) => item.id === id)!;
-        return item.status === 'completed';
+        return item.status === STATUS_OPTIONS.completed;
     }
 
     public setSelectedItemId(id: number) {

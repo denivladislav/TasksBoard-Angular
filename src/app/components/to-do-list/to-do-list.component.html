@@ -5,18 +5,30 @@
     @if (isLoading) {
         <app-loading-spinner></app-loading-spinner>
     } @else {
+        <section>
+            <mat-form-field>
+                <mat-select [(value)]="selectedOption">
+                    @for (option of itemSelectOptions; track option) {
+                        <mat-option [value]="option">
+                            {{ option }}
+                        </mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </section>
         <section class="task-list">
             <ul class="task-list__list">
-                <app-to-do-list-item 
-                    *ngFor="let toDoListItem of toDoList"
-                    [item]="toDoListItem"
-                    [isSelected]="getIsItemSelected(toDoListItem.id)"
-                    [isChecked]="getIsItemChecked(toDoListItem.id)"
-                    (deleteItemEvent)="deleteItem($event)"
-                    (setSelectedItemIdEvent)="setSelectedItemId($event); setIsEditing(false)"
-                    (setIsEditingEvent)="setIsEditing($event); setEditItemFormDefaultValue()"
-                    (toggleItemStatusEvent)="toggleItemStatus($event)"
-                ></app-to-do-list-item>
+                @for (toDoListItem of filteredToDoList; track toDoListItem) {
+                    <app-to-do-list-item 
+                        [item]="toDoListItem"
+                        [isSelected]="getIsItemSelected(toDoListItem.id)"
+                        [isChecked]="getIsItemChecked(toDoListItem.id)"
+                        (deleteItemEvent)="deleteItem($event)"
+                        (setSelectedItemIdEvent)="setSelectedItemId($event); setIsEditing(false)"
+                        (setIsEditingEvent)="setIsEditing($event); setEditItemFormDefaultValue()"
+                        (toggleItemStatusEvent)="toggleItemStatus($event)"
+                    ></app-to-do-list-item>
+                }
             </ul>
             @if (selectedItem && !isEditing) {
                 <app-to-do-list-item-description
