@@ -19,7 +19,7 @@
         <section class="task-list">
             <ul class="task-list__list">
                 @for (toDoListItem of filteredToDoList; track toDoListItem) {
-                    <app-to-do-list-item 
+                    <app-to-do-list-item
                         [item]="toDoListItem"
                         [isSelected]="getIsItemSelected(toDoListItem.id)"
                         [isChecked]="getIsItemChecked(toDoListItem.id)"
@@ -42,12 +42,12 @@
                         <input 
                             matInput 
                             type="text" 
-                            placeholder="New todo item title" 
-                            name="editTitle"
-                            [formControl]="editItemForm.controls.title"
+                            placeholder="New todo item name" 
+                            name="editName"
+                            [formControl]="editItemForm.controls.name"
                         />
-                        @if (editItemForm.controls.title.hasError('required') || editItemForm.controls.title.hasError('whitespace')) {
-                            <mat-error>Title is <strong>required</strong></mat-error>
+                        @if (editItemForm.controls.name.hasError('required') || editItemForm.controls.name.hasError('whitespace')) {
+                            <mat-error>Name is <strong>required</strong></mat-error>
                         }
                     </mat-form-field>
                     <div class="edit-item-form__button-group">
@@ -63,7 +63,7 @@
                             type="submit"
                             class="button__positive"
                             appCustomTooltip="Save new item todo" 
-                            [disabled]="editItemForm.controls.title.invalid"
+                            [disabled]="editItemForm.controls.name.invalid"
                         >
                             Save
                         </app-button>
@@ -73,25 +73,7 @@
         </section>
 
         <section>
-            <form #formDirective="ngForm" [formGroup]="addItemForm" class="add-item-form" (ngSubmit)="onAddItemFormSubmit(formDirective)">
-                <mat-form-field class="add-item-form__formfield">
-                    <input matInput [formControl]="addItemForm.controls.title" type="text" placeholder="Add your new todo" name="titleInput" />
-                    @if (addItemForm.controls.title.hasError('required') || addItemForm.controls.title.hasError('whitespace')) {
-                        <mat-error>Title is <strong>required</strong></mat-error>
-                    }
-                </mat-form-field>
-                <mat-form-field class="add-item-form__formfield">
-                    <textarea matInput [formControl]="addItemForm.controls.description" type="text" placeholder="Add description" name="descriptionInput"></textarea>
-                </mat-form-field>
-                <app-button 
-                    type="submit"
-                    class="button__positive"
-                    appCustomTooltip="Add new todo item" 
-                    [disabled]="addItemForm.controls.title.invalid"  
-                >
-                    Add
-                </app-button>
-            </form>
+            <app-to-do-create-item />
         </section>
     }
 </main>

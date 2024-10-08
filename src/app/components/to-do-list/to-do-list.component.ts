@@ -8,7 +8,6 @@ import {
     FormGroup,
     FormGroupDirective,
 } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,6 +20,7 @@ import { ToDoListItemDescriptionComponent } from '../to-do-list-item-description
 import { SharedModule } from '../../modules';
 import { STATUS_OPTIONS } from '../../services/to-do-list-service/to-do-list.service.types';
 import { ALL_SELECT_OPTION } from './to-do-list.component.const';
+import { ToDoCreateItemComponent } from '../to-do-create-item';
 
 @Component({
     selector: 'app-to-do-list',
@@ -30,10 +30,10 @@ import { ALL_SELECT_OPTION } from './to-do-list.component.const';
         FormsModule,
         ReactiveFormsModule,
         MatFormFieldModule,
-        MatButtonModule,
         MatInputModule,
         MatSelectModule,
         ToDoListItemComponent,
+        ToDoCreateItemComponent,
         ToDoListItemDescriptionComponent,
         ButtonComponent,
         SharedModule,
@@ -89,7 +89,11 @@ export class ToDoListComponent implements OnInit {
     }
 
     public getIsItemChecked(id: number) {
-        const item = this._toDoListService.toDoList.find((item) => item.id === id)!;
+        const item = this._toDoListService.toDoList.find((item) => item.id === id);
+        if (!item) {
+            return false;
+        }
+
         return item.status === STATUS_OPTIONS.completed;
     }
 
@@ -111,32 +115,21 @@ export class ToDoListComponent implements OnInit {
         this._toastService.addToast('negative');
     }
 
-    public addItemForm = new FormGroup({
-        title: new FormControl('', [Validators.required, noWhitespaceValidator]),
-        description: new FormControl(''),
-    });
-
     public editItemForm = new FormGroup({
-        title: new FormControl('', [Validators.required, noWhitespaceValidator]),
+        name: new FormControl('', [Validators.required, noWhitespaceValidator]),
     });
 
     public setEditItemFormDefaultValue() {
-        this.editItemForm.controls.title.patchValue(this.selectedItem?.title || '');
-    }
-
-    public onAddItemFormSubmit(formDirective: FormGroupDirective) {
-        this._toDoListService.addItem({
-            title: this.addItemForm.value.title!,
-            description: this.addItemForm.value.description!,
-        });
-        this._toastService.addToast('positive');
-
-        formDirective.resetForm();
+        this.editItemForm.controls.name.patchValue(this.selectedItem?.name || '');
     }
 
     public onEditItemFormSubmit(formDirective: FormGroupDirective) {
+        if (!this.editItemForm.value.name) {
+            return;
+        }
+
         this._toDoListService.patchItem({
-            title: this.editItemForm.value.title!,
+            name: this.editItemForm.value.name,
         });
         this._toastService.addToast('info');
 

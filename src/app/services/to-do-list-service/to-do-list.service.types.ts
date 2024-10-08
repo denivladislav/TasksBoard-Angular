@@ -7,7 +7,7 @@ export type ToDoListItemStatus = (typeof STATUS_OPTIONS)[keyof typeof STATUS_OPT
 
 export interface ToDoListItem {
     id: number;
-    title: string;
+    name: string;
     status: ToDoListItemStatus;
     description?: string;
 }

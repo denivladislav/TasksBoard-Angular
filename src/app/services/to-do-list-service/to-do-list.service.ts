@@ -8,19 +8,19 @@ export class ToDoListService {
     private _toDoList: ToDoListItem[] = [
         {
             id: 0,
-            title: 'Task1',
+            name: 'Task1',
             description:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
             status: STATUS_OPTIONS.inProgress,
         },
         {
             id: 1,
-            title: 'Task2',
+            name: 'Task2',
             status: STATUS_OPTIONS.completed,
         },
         {
             id: 2,
-            title: 'Task3',
+            name: 'Task3',
             status: STATUS_OPTIONS.inProgress,
         },
     ];
@@ -65,7 +65,11 @@ export class ToDoListService {
     }
 
     public toggleItemStatus(id: number) {
-        const item = this._toDoList.find((item) => item.id === id)!;
+        const item = this._toDoList.find((item) => item.id === id);
+        if (!item) {
+            return;
+        }
+
         if (item.status === STATUS_OPTIONS.completed) {
             this.setItemStatus(item, STATUS_OPTIONS.inProgress);
         } else {
@@ -81,19 +85,23 @@ export class ToDoListService {
         this._editedItemId = null;
     }
 
-    public addItem({ title, description }: Omit<ToDoListItem, 'id' | 'status'>) {
+    public addItem({ name, description }: Omit<ToDoListItem, 'id' | 'status'>) {
         const newItemId = this.itemIds.length > 0 ? Math.max(...this.itemIds) + 1 : 0;
 
         this._toDoList.push({
             id: newItemId,
-            title: title.trim(),
+            name: name.trim(),
             description: description?.trim(),
             status: STATUS_OPTIONS.inProgress,
         });
     }
 
-    public patchItem({ title }: { title: string }) {
-        this.selectedItem!.title = title;
+    public patchItem({ name }: { name: string }) {
+        if (!this.selectedItem) {
+            return;
+        }
+
+        this.selectedItem.name = name;
     }
 
     public deleteItem(id: number) {
