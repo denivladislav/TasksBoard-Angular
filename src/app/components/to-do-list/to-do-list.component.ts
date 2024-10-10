@@ -12,7 +12,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ToDoListService } from '../../services';
-import { ToastService } from '../../services';
 import { ToDoListItemComponent } from '../to-do-list-item';
 import { noWhitespaceValidator } from '../../utils';
 import { ButtonComponent } from '../../ui';
@@ -42,35 +41,23 @@ import { ToDoCreateItemComponent } from '../to-do-create-item';
     styleUrls: ['../../app.component.scss', './to-do-list.component.scss'],
 })
 export class ToDoListComponent implements OnInit {
-    private _isLoading = true;
     private _isEditing = false;
 
     public itemSelectOptions = [ALL_SELECT_OPTION, ...Object.values(STATUS_OPTIONS)];
     public selectedOption = this.itemSelectOptions[0];
 
-    constructor(
-        private _toDoListService: ToDoListService,
-        private _toastService: ToastService,
-    ) {}
-
-    public get isLoading() {
-        return this._isLoading;
-    }
+    constructor(private _toDoListService: ToDoListService) {}
 
     public get isEditing() {
         return this._isEditing;
     }
 
-    public setIsLoading(isLoading: boolean) {
-        this._isLoading = isLoading;
-    }
-
-    public setIsEditing(isEditing: boolean) {
-        this._isEditing = isEditing;
-    }
-
     public get toDoList() {
         return this._toDoListService.toDoList;
+    }
+
+    public get isLoading() {
+        return this._toDoListService.isLoading;
     }
 
     public get filteredToDoList() {
@@ -84,12 +71,12 @@ export class ToDoListComponent implements OnInit {
         return this._toDoListService.selectedItem;
     }
 
-    public getIsItemSelected(id: number) {
+    public getIsItemSelected(id: string) {
         return this._toDoListService.selectedItemId === id;
     }
 
-    public getIsItemChecked(id: number) {
-        const item = this._toDoListService.toDoList.find((item) => item.id === id);
+    public getIsItemChecked(id: string) {
+        const item = this._toDoListService.getItemById(id);
         if (!item) {
             return false;
         }
@@ -97,11 +84,11 @@ export class ToDoListComponent implements OnInit {
         return item.status === STATUS_OPTIONS.completed;
     }
 
-    public setSelectedItemId(id: number) {
+    public setSelectedItemId(id: string) {
         this._toDoListService.setSelectedItemId(id);
     }
 
-    public toggleItemStatus(id: number) {
+    public toggleItemStatus(id: string) {
         this._toDoListService.toggleItemStatus(id);
     }
 
@@ -110,34 +97,37 @@ export class ToDoListComponent implements OnInit {
         formDirective.resetForm();
     }
 
-    public deleteItem(id: number) {
+    public deleteItem(id: string) {
         this._toDoListService.deleteItem(id);
-        this._toastService.addToast('negative');
     }
 
     public editItemForm = new FormGroup({
         name: new FormControl('', [Validators.required, noWhitespaceValidator]),
     });
 
+    public setIsEditing(isEditing: boolean) {
+        this._isEditing = isEditing;
+    }
+
     public setEditItemFormDefaultValue() {
         this.editItemForm.controls.name.patchValue(this.selectedItem?.name || '');
     }
 
     public onEditItemFormSubmit(formDirective: FormGroupDirective) {
-        if (!this.editItemForm.value.name) {
+        if (!this.editItemForm.value.name || !this.selectedItem?.id) {
             return;
         }
 
         this._toDoListService.patchItem({
+            id: this.selectedItem.id,
             name: this.editItemForm.value.name,
         });
-        this._toastService.addToast('info');
 
         this.setIsEditing(false);
         formDirective.resetForm();
     }
 
     ngOnInit() {
-        setTimeout(() => this.setIsLoading(false), 1000);
+        this._toDoListService.getToDoList();
     }
 }

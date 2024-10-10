@@ -2,4 +2,4 @@ export interface ToastData {
     toastType: ToastType;
 }
 
-export type ToastType = 'positive' | 'negative' | 'info';
+export type ToastType = 'positive' | 'negative' | 'info' | 'error';

@@ -22,6 +22,8 @@ export class ToastComponent {
                 return 'Todo was deleted!';
             case 'info':
                 return 'Todo was edited!';
+            case 'error':
+                return 'Something went wrong. Try again';
             default:
                 throw new Error(`Unknown toastType: ${this.data.toastType}`);
         }

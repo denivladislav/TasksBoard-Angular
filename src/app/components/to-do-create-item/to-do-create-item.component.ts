@@ -52,7 +52,6 @@ export class ToDoCreateItemComponent {
             name: this.addItemForm.value.name,
             description: this.addItemForm.value.description,
         });
-        this._toastService.addToast('positive');
 
         formDirective.resetForm();
     }

@@ -17,12 +17,12 @@ export class ToDoListItemComponent {
     @Input() public isSelected = false;
     @Input() public isChecked = false;
 
-    @Output() public setSelectedItemIdEvent = new EventEmitter<number>();
+    @Output() public setSelectedItemIdEvent = new EventEmitter<string>();
     @Output() public setIsEditingEvent = new EventEmitter<boolean>();
-    @Output() public toggleItemStatusEvent = new EventEmitter<number>();
-    @Output() public deleteItemEvent = new EventEmitter<number>();
+    @Output() public toggleItemStatusEvent = new EventEmitter<string>();
+    @Output() public deleteItemEvent = new EventEmitter<string>();
 
-    public setSelectedItemId(id?: number) {
+    public setSelectedItemId(id?: string) {
         this.setSelectedItemIdEvent.emit(id);
     }
 
@@ -30,12 +30,12 @@ export class ToDoListItemComponent {
         this.setIsEditingEvent.emit(isEditing);
     }
 
-    public toggleItemStatus(e: Event, id?: number) {
+    public toggleItemStatus(e: Event, id?: string) {
         e.stopPropagation();
         this.toggleItemStatusEvent.emit(id);
     }
 
-    public deleteItem(e: Event, id?: number) {
+    public deleteItem(e: Event, id?: string) {
         e.stopPropagation();
         this.deleteItemEvent.emit(id);
     }
