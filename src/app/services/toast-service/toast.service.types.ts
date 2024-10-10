@@ -1,4 +1,5 @@
 export interface ToastData {
+    message: string;
     toastType: ToastType;
 }
 

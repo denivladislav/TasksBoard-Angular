@@ -37,7 +37,7 @@ ul {
 }
 
 .snackbar__negative .mdc-snackbar__surface {
-    background: darkgoldenrod !important;
+    background: red !important;
 }
 
 .snackbar__info .mdc-snackbar__surface {
@@ -45,5 +45,5 @@ ul {
 }
 
 .snackbar__error .mdc-snackbar__surface {
-    background: red !important;
+    background: darkred !important;
 }

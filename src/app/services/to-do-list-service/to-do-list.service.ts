@@ -126,7 +126,10 @@ export class ToDoListService {
                 next: (newItem) => {
                     this._toDoList.push(newItem);
                     this.setIsLoading(false);
-                    this._toastService.addToast('positive');
+                    this._toastService.addToast({
+                        message: 'Todo was added!',
+                        toastType: 'positive',
+                    });
                 },
                 error: this.handleHttpError,
             });
@@ -143,7 +146,10 @@ export class ToDoListService {
                 }
                 Object.assign(item, patchedItem);
                 this.setIsLoading(false);
-                this._toastService.addToast('info');
+                this._toastService.addToast({
+                    message: 'Todo was updated!',
+                    toastType: 'info',
+                });
             },
             error: this.handleHttpError,
         });
@@ -158,7 +164,10 @@ export class ToDoListService {
                     this.clearSelectedItemId();
                 }
                 this.setIsLoading(false);
-                this._toastService.addToast('negative');
+                this._toastService.addToast({
+                    message: 'Todo was deleted!',
+                    toastType: 'negative',
+                });
             },
             error: this.handleHttpError,
         });
@@ -168,6 +177,10 @@ export class ToDoListService {
 
     public handleHttpError(err: HttpErrorResponse) {
         console.error(err);
+        this._toastService.addToast({
+            message: 'Something went wrong. Try again',
+            toastType: 'error',
+        });
         this.setIsLoading(false);
     }
 }

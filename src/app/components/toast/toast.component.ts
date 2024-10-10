@@ -13,19 +13,4 @@ export class ToastComponent {
     snackBarRef = inject(MatSnackBarRef);
 
     constructor(@Inject(MAT_SNACK_BAR_DATA) public data: ToastData) {}
-
-    public getMessage() {
-        switch (this.data.toastType) {
-            case 'positive':
-                return 'Todo was added!';
-            case 'negative':
-                return 'Todo was deleted!';
-            case 'info':
-                return 'Todo was edited!';
-            case 'error':
-                return 'Something went wrong. Try again';
-            default:
-                throw new Error(`Unknown toastType: ${this.data.toastType}`);
-        }
-    }
 }
