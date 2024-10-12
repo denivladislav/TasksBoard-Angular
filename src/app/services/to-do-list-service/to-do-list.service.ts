@@ -3,6 +3,7 @@ import { STATUS_OPTIONS, ToDoListItem, ToDoListItemStatus } from './to-do-list.s
 import { ApiService } from '../api-service/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from '../toast-service';
+import { catchError, throwError } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -90,38 +91,42 @@ export class ToDoListService {
             return;
         }
 
-        let newStatus: ToDoListItemStatus;
         if (item.status === STATUS_OPTIONS.completed) {
-            newStatus = STATUS_OPTIONS.inProgress;
+            this.patchItem({ id, status: STATUS_OPTIONS.inProgress });
         } else {
-            newStatus = STATUS_OPTIONS.completed;
+            this.patchItem({ id, status: STATUS_OPTIONS.completed });
         }
-        this.patchItem({ id, status: newStatus });
+    }
+
+    public getNewItemId() {
+        return this.itemIds.length > 0 ? Math.max(...this.itemIds.map((item) => parseInt(item))) + 1 : 0;
     }
 
     public getToDoList() {
         this.setIsLoading(true);
 
-        this._api.getItems().subscribe({
-            next: (items) => {
-                this.setToDoList(items);
-                this.setIsLoading(false);
-            },
-            error: this.handleHttpError,
-        });
+        this._api
+            .getItems()
+            .pipe(catchError(this.handleHttpError))
+            .subscribe({
+                next: (items) => {
+                    this.setToDoList(items);
+                    this.setIsLoading(false);
+                },
+            });
     }
 
     public addItem({ name, description }: Omit<ToDoListItem, 'id' | 'status'>) {
-        const newItemId = this.itemIds.length > 0 ? Math.max(...this.itemIds.map((item) => parseInt(item))) + 1 : 0;
         this.setIsLoading(true);
 
         this._api
             .addItem({
-                id: String(newItemId),
+                id: String(this.getNewItemId()),
                 name: name.trim(),
                 description: description?.trim(),
                 status: STATUS_OPTIONS.inProgress,
             })
+            .pipe(catchError(this.handleHttpError))
             .subscribe({
                 next: (newItem) => {
                     this._toDoList.push(newItem);
@@ -131,56 +136,62 @@ export class ToDoListService {
                         toastType: 'positive',
                     });
                 },
-                error: this.handleHttpError,
             });
     }
 
     public patchItem(payload: Required<Pick<ToDoListItem, 'id'>> & Partial<ToDoListItem>) {
         this.setIsLoading(true);
 
-        this._api.patchItem(payload).subscribe({
-            next: (patchedItem) => {
-                const item = this.getItemById(patchedItem.id);
-                if (!item) {
-                    return;
-                }
-                Object.assign(item, patchedItem);
-                this.setIsLoading(false);
-                this._toastService.addToast({
-                    message: 'Todo was updated!',
-                    toastType: 'info',
-                });
-            },
-            error: this.handleHttpError,
-        });
+        this._api
+            .patchItem(payload)
+            .pipe(catchError(this.handleHttpError))
+            .subscribe({
+                next: (patchedItem) => {
+                    const item = this.getItemById(patchedItem.id);
+                    if (!item) {
+                        return;
+                    }
+                    Object.assign(item, patchedItem);
+                    this.setIsLoading(false);
+                    this._toastService.addToast({
+                        message: 'Todo was updated!',
+                        toastType: 'info',
+                    });
+                },
+            });
     }
 
     public deleteItem(id: string) {
         this.setIsLoading(true);
 
-        this._api.deleteItem({ id }).subscribe({
-            next: () => {
-                if (this.selectedItemId === id) {
-                    this.clearSelectedItemId();
-                }
-                this.setIsLoading(false);
-                this._toastService.addToast({
-                    message: 'Todo was deleted!',
-                    toastType: 'negative',
-                });
-            },
-            error: this.handleHttpError,
-        });
+        this._api
+            .deleteItem({ id })
+            .pipe(catchError(this.handleHttpError))
+            .subscribe({
+                next: () => {
+                    if (this.selectedItemId === id) {
+                        this.clearSelectedItemId();
+                    }
+                    this.setIsLoading(false);
+                    this._toastService.addToast({
+                        message: 'Todo was deleted!',
+                        toastType: 'negative',
+                    });
+                },
+            });
 
         this._toDoList = this._toDoList.filter((item) => item.id !== id);
     }
 
     public handleHttpError(err: HttpErrorResponse) {
         console.error(err);
+
+        const message = 'Something went wrong. Try again';
         this._toastService.addToast({
-            message: 'Something went wrong. Try again',
+            message,
             toastType: 'error',
         });
         this.setIsLoading(false);
+        return throwError(() => new Error(message));
     }
 }

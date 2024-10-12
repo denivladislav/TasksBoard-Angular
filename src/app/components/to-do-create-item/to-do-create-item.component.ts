@@ -8,7 +8,7 @@ import {
     ReactiveFormsModule,
 } from '@angular/forms';
 import { noWhitespaceValidator } from '../../utils';
-import { ToastService, ToDoListService } from '../../services';
+import { ToDoListService } from '../../services';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -33,10 +33,7 @@ import { ButtonComponent } from '../../ui';
     styleUrl: './to-do-create-item.component.scss',
 })
 export class ToDoCreateItemComponent {
-    constructor(
-        private _toDoListService: ToDoListService,
-        private _toastService: ToastService,
-    ) {}
+    constructor(private _toDoListService: ToDoListService) {}
 
     public addItemForm = new FormGroup({
         name: new FormControl('', [Validators.required, noWhitespaceValidator]),
