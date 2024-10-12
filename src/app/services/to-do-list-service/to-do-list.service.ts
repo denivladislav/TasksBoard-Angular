@@ -3,7 +3,7 @@ import { STATUS_OPTIONS, ToDoListItem, ToDoListItemStatus } from './to-do-list.s
 import { ApiService } from '../api-service/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from '../toast-service';
-import { catchError, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -17,7 +17,7 @@ export class ToDoListService {
 
     constructor(private _toastService: ToastService) {}
 
-    public get toDoList() {
+    public get toDoList(): ToDoListItem[] {
         return this._toDoList;
     }
 
@@ -33,15 +33,15 @@ export class ToDoListService {
         return this._isLoading;
     }
 
-    public get itemIds() {
+    public get itemIds(): string[] {
         return this._toDoList.map((item) => item.id);
     }
 
-    public getItemById(id: string) {
+    public getItemById(id: string): ToDoListItem | undefined {
         return this._toDoList.find((item) => item.id === id);
     }
 
-    public get selectedItem() {
+    public get selectedItem(): ToDoListItem | undefined {
         if (!this.selectedItemId) {
             return;
         }
@@ -49,7 +49,7 @@ export class ToDoListService {
         return this.getItemById(this.selectedItemId);
     }
 
-    public get editedItem() {
+    public get editedItem(): ToDoListItem | undefined {
         if (!this.editedItemId) {
             return;
         }
@@ -98,8 +98,8 @@ export class ToDoListService {
         }
     }
 
-    public getNewItemId() {
-        return this.itemIds.length > 0 ? Math.max(...this.itemIds.map((item) => parseInt(item))) + 1 : 0;
+    public getNewItemId(): string {
+        return this.itemIds.length > 0 ? Math.max(...this.itemIds.map((item) => parseInt(item))).toString() + 1 : '0';
     }
 
     public getToDoList() {
@@ -183,7 +183,7 @@ export class ToDoListService {
         this._toDoList = this._toDoList.filter((item) => item.id !== id);
     }
 
-    public handleHttpError(err: HttpErrorResponse) {
+    public handleHttpError(err: HttpErrorResponse): Observable<never> {
         console.error(err);
 
         const message = 'Something went wrong. Try again';

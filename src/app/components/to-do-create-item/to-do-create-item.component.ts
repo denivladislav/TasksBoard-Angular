@@ -35,7 +35,10 @@ import { ButtonComponent } from '../../ui';
 export class ToDoCreateItemComponent {
     constructor(private _toDoListService: ToDoListService) {}
 
-    public addItemForm = new FormGroup({
+    public addItemForm = new FormGroup<{
+        name: FormControl<string | null>;
+        description: FormControl<string | null>;
+    }>({
         name: new FormControl('', [Validators.required, noWhitespaceValidator]),
         description: new FormControl(''),
     });

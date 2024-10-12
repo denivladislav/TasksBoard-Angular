@@ -17,8 +17,8 @@ import { noWhitespaceValidator } from '../../utils';
 import { ButtonComponent } from '../../ui';
 import { ToDoListItemDescriptionComponent } from '../to-do-list-item-description';
 import { SharedModule } from '../../modules';
-import { STATUS_OPTIONS } from '../../services/to-do-list-service/to-do-list.service.types';
-import { ALL_SELECT_OPTION } from './to-do-list.component.const';
+import { STATUS_OPTIONS, ToDoListItem } from '../../services/to-do-list-service/to-do-list.service.types';
+import { ALL_SELECT_OPTION, ItemSelectOption } from './to-do-list.component.types';
 import { ToDoCreateItemComponent } from '../to-do-create-item';
 
 @Component({
@@ -43,8 +43,8 @@ import { ToDoCreateItemComponent } from '../to-do-create-item';
 export class ToDoListComponent implements OnInit {
     private _isEditing = false;
 
-    public itemSelectOptions = [ALL_SELECT_OPTION, ...Object.values(STATUS_OPTIONS)];
-    public selectedOption = this.itemSelectOptions[0];
+    public itemSelectOptions: ItemSelectOption[] = [ALL_SELECT_OPTION, ...Object.values(STATUS_OPTIONS)];
+    public selectedOption: ItemSelectOption = this.itemSelectOptions[0];
 
     constructor(private _toDoListService: ToDoListService) {}
 
@@ -52,7 +52,7 @@ export class ToDoListComponent implements OnInit {
         return this._isEditing;
     }
 
-    public get toDoList() {
+    public get toDoList(): ToDoListItem[] {
         return this._toDoListService.toDoList;
     }
 
@@ -60,14 +60,15 @@ export class ToDoListComponent implements OnInit {
         return this._toDoListService.isLoading;
     }
 
-    public get filteredToDoList() {
+    public get filteredToDoList(): ToDoListItem[] {
         if (this.selectedOption === ALL_SELECT_OPTION) {
             return this.toDoList;
         }
+
         return this.toDoList.filter((item) => item.status === this.selectedOption);
     }
 
-    public get selectedItem() {
+    public get selectedItem(): ToDoListItem | undefined {
         return this._toDoListService.selectedItem;
     }
 
@@ -88,6 +89,10 @@ export class ToDoListComponent implements OnInit {
         this._toDoListService.setSelectedItemId(id);
     }
 
+    public setIsEditing(isEditing: boolean) {
+        this._isEditing = isEditing;
+    }
+
     public toggleItemStatus(id: string) {
         this._toDoListService.toggleItemStatus(id);
     }
@@ -101,13 +106,11 @@ export class ToDoListComponent implements OnInit {
         this._toDoListService.deleteItem(id);
     }
 
-    public editItemForm = new FormGroup({
+    public editItemForm = new FormGroup<{
+        name: FormControl<string | null>;
+    }>({
         name: new FormControl('', [Validators.required, noWhitespaceValidator]),
     });
-
-    public setIsEditing(isEditing: boolean) {
-        this._isEditing = isEditing;
-    }
 
     public setEditItemFormDefaultValue() {
         this.editItemForm.controls.name.patchValue(this.selectedItem?.name || '');
