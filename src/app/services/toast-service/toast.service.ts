@@ -9,17 +9,16 @@ import { ToastComponent } from '../../components';
 export class ToastService {
     private _toast = inject(MatSnackBar);
 
-    public addToast(toastType: ToastType) {
-        const customClass = `snackbar__${toastType}`;
-
+    public addToast({ message, toastType }: { message: string; toastType: ToastType }) {
         this._toast.openFromComponent(ToastComponent, {
             horizontalPosition: 'end',
             verticalPosition: 'top',
             duration: 3000,
             data: {
+                message,
                 toastType,
             },
-            panelClass: [customClass],
+            panelClass: [`snackbar__${toastType}`],
         });
     }
 }
