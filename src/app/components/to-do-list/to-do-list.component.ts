@@ -92,6 +92,7 @@ export class ToDoListComponent implements OnInit {
 
     public deleteItem(id: string) {
         this._toDoListService.deleteItem(id);
+        this._router.navigate(['/'], { relativeTo: this._route });
     }
 
     public goToItem(id: string) {
