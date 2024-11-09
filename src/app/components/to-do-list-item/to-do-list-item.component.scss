@@ -8,6 +8,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: whitesmoke;
+    word-break: break-word;
 }
 
 .to-do-list-item:hover {
@@ -22,4 +23,5 @@
     display: flex;
     align-items: center;
     gap: 1.5rem;
+    word-break: keep-all;
 }

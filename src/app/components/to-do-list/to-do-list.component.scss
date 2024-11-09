@@ -12,6 +12,7 @@
 
 .task-list-wrapper__menu {
     overflow-y: auto;
+    flex-basis: 400px;
 }
 
 .task-filter {
@@ -24,7 +25,7 @@
 
 .task-list__list {
     margin: 0;
-    flex: 2 0;
+    width: 100%;
 
     & > *:not(:last-child) {
         margin-bottom: 0.5rem;
@@ -36,6 +37,6 @@
 }
 
 .app-to-do-create-item-wrapper {
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
