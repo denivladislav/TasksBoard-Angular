@@ -38,6 +38,12 @@ export const routes: Routes = [
     {
         path: ROUTE_TOKENS.BOARD,
         loadComponent: () => import('./components/landing/landing.component').then((c) => c.LandingComponent),
+        children: [
+            {
+                path: '',
+                loadComponent: () => import('./components/board/board.component').then((c) => c.BoardComponent),
+            },
+        ],
     },
     {
         path: '**',

@@ -1,0 +1,34 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 3rem;
+}
+
+.column__header {
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.task-list {
+    margin: 0;
+    width: 100%;
+
+    & > *:not(:last-child) {
+        margin-bottom: 0.5rem;
+    }
+}
+
+.column {
+    grid-column: span 6;
+}
+
+/* stylelint-disable-next-line selector-pseudo-element-no-unknown */
+::ng-deep .task-list app-to-do-list-item .to-do-list-item:hover {
+    cursor: default;
+}
