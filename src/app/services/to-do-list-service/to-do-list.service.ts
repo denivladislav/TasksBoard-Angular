@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { STATUS_OPTIONS, ToDoListItem, ToDoListItemStatus } from './to-do-list.service.types';
-import { ApiService } from '../api-service/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ToastService } from '../toast-service';
 import { catchError, Observable, throwError } from 'rxjs';
+import { ToastService } from '../toast-service';
+import { ApiService } from '../api-service';
 
 @Injectable({
     providedIn: 'root',
@@ -87,7 +87,7 @@ export class ToDoListService {
     }
 
     public getNewItemId(): string {
-        return this.itemIds.length > 0 ? Math.max(...this.itemIds.map((item) => parseInt(item))).toString() + 1 : '0';
+        return this.itemIds.length > 0 ? (Math.max(...this.itemIds.map((item) => parseInt(item))) + 1).toString() : '0';
     }
 
     public getToDoList() {

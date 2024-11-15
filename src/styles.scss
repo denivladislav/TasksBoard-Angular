@@ -12,12 +12,23 @@ body {
 
 main {
     height: 100%;
-    padding: 2rem;
     box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    margin: 0;
 }
 
 ul {
     padding: 0;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
 
 .tooltip {

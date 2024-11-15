@@ -1,4 +1,5 @@
-.loading-spinner {
-    top: 2rem;
+:host {
     margin: auto;
+    display: block;
+    width: min-content;
 }

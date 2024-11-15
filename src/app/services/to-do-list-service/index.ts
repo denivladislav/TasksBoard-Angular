@@ -1,2 +1,2 @@
 export { ToDoListService } from './to-do-list.service';
-export { ToDoListItem } from './to-do-list.service.types';
+export { ToDoListItem, ToDoListItemStatus, STATUS_OPTIONS } from './to-do-list.service.types';

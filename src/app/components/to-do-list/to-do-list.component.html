@@ -1,41 +1,41 @@
-<main>
-    <header>
-        <h1>Todo list</h1>
-    </header>
-    @if (isLoading) {
-        <app-loading-spinner></app-loading-spinner>
-    } @else {
-        <section>
-            <mat-form-field>
-                <mat-select [(value)]="selectedOption">
-                    @for (option of itemSelectOptions; track option) {
-                        <mat-option [value]="option">
-                            {{ option }}
-                        </mat-option>
+@if (isLoading) {
+    <app-loading-spinner></app-loading-spinner>
+} @else {
+    <div class="task-list-wrapper">
+        <div class="task-list-wrapper__menu">
+            <section>
+                <mat-form-field class="task-filter">
+                    <mat-select [(value)]="selectedOption">
+                        @for (option of itemSelectOptions; track option) {
+                            <mat-option [value]="option">
+                                {{ option }}
+                            </mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            </section>
+            <section class="task-list">
+                <ul class="task-list__list">
+                    @for (toDoListItem of filteredToDoList; track toDoListItem) {
+                        <app-to-do-list-item
+                            class="cursor-pointer"
+                            [item]="toDoListItem"
+                            [isSelected]="getIsItemSelected(toDoListItem.id)"
+                            [isChecked]="getIsItemChecked(toDoListItem.id)"
+                            (deleteItemEvent)="deleteItem($event)"
+                            (goToItemEvent)="goToItem($event)"
+                            (setIsEditingEvent)="setIsEditing($event);"
+                            (toggleItemStatusEvent)="toggleItemStatus($event)"
+                        ></app-to-do-list-item>
                     }
-                </mat-select>
-            </mat-form-field>
-        </section>
-        <section class="task-list">
-            <ul class="task-list__list">
-                @for (toDoListItem of filteredToDoList; track toDoListItem) {
-                    <app-to-do-list-item
-                        [item]="toDoListItem"
-                        [isSelected]="getIsItemSelected(toDoListItem.id)"
-                        [isChecked]="getIsItemChecked(toDoListItem.id)"
-                        (deleteItemEvent)="deleteItem($event)"
-                        (goToItemEvent)="goToItem($event)"
-                        (setIsEditingEvent)="setIsEditing($event);"
-                        (toggleItemStatusEvent)="toggleItemStatus($event)"
-                    ></app-to-do-list-item>
-                }
-            </ul>
+                </ul>
+            </section>
+        </div>
 
-            <router-outlet></router-outlet>
-        </section>
+        <router-outlet></router-outlet>
+    </div>
 
-        <section>
-            <app-to-do-create-item />
-        </section>
-    }
-</main>
+    <section class="app-to-do-create-item-wrapper">
+        <app-to-do-create-item />
+    </section>
+}

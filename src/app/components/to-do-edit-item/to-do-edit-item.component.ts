@@ -13,11 +13,20 @@ import { noWhitespaceValidator } from '../../utils';
 import { ToDoListItem, ToDoListService } from '../../services';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
+import { SharedModule } from '../../modules';
 
 @Component({
     selector: 'app-to-do-edit-item',
     standalone: true,
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, ButtonComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ButtonComponent,
+        SharedModule,
+    ],
     templateUrl: './to-do-edit-item.component.html',
     styleUrl: './to-do-edit-item.component.scss',
 })

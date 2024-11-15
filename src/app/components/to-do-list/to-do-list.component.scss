@@ -1,17 +1,38 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.task-list-wrapper {
+    display: flex;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.task-list-wrapper__menu {
+    overflow-y: auto;
+    flex-basis: 400px;
+}
+
+.task-filter {
+    width: 100%;
+}
+
 .task-list {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 3rem;
-    height: 300px;
-    overflow-y: auto;
 }
 
 .task-list__list {
     margin: 0;
-    flex: 2 0;
-    overflow-y: auto;
+    width: 100%;
+
+    & > *:not(:last-child) {
+        margin-bottom: 0.5rem;
+    }
 }
 
-.task-list__description {
-    flex: 1 0;
+.app-to-do-create-item-wrapper {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }

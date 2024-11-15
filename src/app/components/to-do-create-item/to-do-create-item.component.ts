@@ -44,13 +44,13 @@ export class ToDoCreateItemComponent {
     });
 
     public onAddItemFormSubmit(formDirective: FormGroupDirective) {
-        if (!this.addItemForm.value.name || !this.addItemForm.value.description) {
+        if (!this.addItemForm.value.name) {
             return;
         }
 
         this._toDoListService.addItem({
             name: this.addItemForm.value.name,
-            description: this.addItemForm.value.description,
+            description: this.addItemForm.value.description || '',
         });
 
         formDirective.resetForm();

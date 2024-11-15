@@ -64,11 +64,11 @@ export class ToDoListComponent implements OnInit {
         return this.toDoList.filter((item) => item.status === this.selectedOption);
     }
 
-    public getIsItemSelected(id: string) {
+    public getIsItemSelected(id: string): boolean {
         return this.selectedItemId === id;
     }
 
-    public getIsItemChecked(id: string) {
+    public getIsItemChecked(id: string): boolean {
         const item = this._toDoListService.getItemById(id);
         if (!item) {
             return false;
@@ -92,6 +92,7 @@ export class ToDoListComponent implements OnInit {
 
     public deleteItem(id: string) {
         this._toDoListService.deleteItem(id);
+        this._router.navigate(['/'], { relativeTo: this._route });
     }
 
     public goToItem(id: string) {
