@@ -27,8 +27,3 @@
 .column {
     grid-column: span 6;
 }
-
-/* stylelint-disable-next-line selector-pseudo-element-no-unknown */
-::ng-deep .task-list app-to-do-list-item .to-do-list-item:hover {
-    cursor: default;
-}

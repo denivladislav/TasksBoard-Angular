@@ -18,6 +18,7 @@
                 <ul class="task-list__list">
                     @for (toDoListItem of filteredToDoList; track toDoListItem) {
                         <app-to-do-list-item
+                            class="cursor-pointer"
                             [item]="toDoListItem"
                             [isSelected]="getIsItemSelected(toDoListItem.id)"
                             [isChecked]="getIsItemChecked(toDoListItem.id)"

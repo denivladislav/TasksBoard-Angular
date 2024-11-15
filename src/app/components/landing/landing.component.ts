@@ -12,8 +12,6 @@ import { capitalize } from '../../utils';
     styleUrl: './landing.component.scss',
 })
 export class LandingComponent {
-    constructor(private _router: Router) {}
-
     public routeTokens = Object.values(ROUTE_TOKENS);
 
     public routes = this.routeTokens.map((route) => ({
@@ -21,11 +19,13 @@ export class LandingComponent {
         path: route === 'backlog' ? `${route}/${ROUTE_CHILDREN_TOKENS.TASKS}` : route,
     }));
 
+    constructor(private _router: Router) {}
+
     public get currentTab() {
         return this._router.url.split('/').find((path) => (this.routeTokens as string[]).includes(path));
     }
 
-    public getIsRouteSelected(route: string) {
+    public getIsRouteSelected(route: string): boolean {
         return this.currentTab === route;
     }
 
