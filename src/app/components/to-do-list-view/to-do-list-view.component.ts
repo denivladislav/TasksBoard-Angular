@@ -25,10 +25,15 @@ export class ToDoListViewComponent implements OnInit {
         return this._router.url.split('/').pop();
     }
 
-    ngOnInit() {
-        this.selectedItem$ = this._router.events.pipe(
+    public get routerNavigationEvent() {
+        return this._router.events.pipe(
             filter((event) => event instanceof NavigationEnd),
             startWith(this._router.url),
+        );
+    }
+
+    ngOnInit() {
+        this.selectedItem$ = this.routerNavigationEvent.pipe(
             map(() => this.selectedItemId),
             switchMap((id) =>
                 this.toDoListService.toDoList$.pipe(map((items) => items.find((item) => item.id === id))),
