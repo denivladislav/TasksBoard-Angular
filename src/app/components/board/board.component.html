@@ -1,15 +1,15 @@
-@if (isLoading) {
-    <app-loading-spinner></app-loading-spinner>
-} @else {
+<app-loading-spinner *ngIf="toDoListService.isLoading$ | async; else content"></app-loading-spinner>
+
+<ng-template #content>
     <div class="board">
         @for (status of statusOptions; track status) {
             <div class="column">
                 <h2 class="column__header">{{ status }}</h2>
                 <ul class="task-list">
-                    @for (toDoListItem of getTasksByStatusOption(status); track toDoListItem) {
+                    @for (toDoListItem of getTasksByStatusOption(status) | async; track toDoListItem) {
                         <app-to-do-list-item
                             [item]="toDoListItem"
-                            [isChecked]="getIsItemChecked(toDoListItem.id)"
+                            [isChecked]="getIsItemChecked(toDoListItem)"
                             (deleteItemEvent)="deleteItem($event)"
                             (toggleItemStatusEvent)="toggleItemStatus($event)"
                         ></app-to-do-list-item>
@@ -18,4 +18,4 @@
             </div>
         }
     </div>
-}
+</ng-template>

@@ -1,11 +1,11 @@
-@if (isLoading) {
-    <app-loading-spinner></app-loading-spinner>
-} @else {
+<app-loading-spinner *ngIf="toDoListService.isLoading$ | async; else content"></app-loading-spinner>
+
+<ng-template #content>
     <div class="task-list-wrapper">
         <div class="task-list-wrapper__menu">
             <section>
                 <mat-form-field class="task-filter">
-                    <mat-select [(value)]="selectedOption">
+                    <mat-select [value]="selectedOption$ | async" (selectionChange)="setSelectedOption($event.value)">
                         @for (option of itemSelectOptions; track option) {
                             <mat-option [value]="option">
                                 {{ option }}
@@ -16,12 +16,12 @@
             </section>
             <section class="task-list">
                 <ul class="task-list__list">
-                    @for (toDoListItem of filteredToDoList; track toDoListItem) {
+                    @for (toDoListItem of filteredToDoList$ | async; track toDoListItem) {
                         <app-to-do-list-item
                             class="cursor-pointer"
                             [item]="toDoListItem"
-                            [isSelected]="getIsItemSelected(toDoListItem.id)"
-                            [isChecked]="getIsItemChecked(toDoListItem.id)"
+                            [isSelected]="getIsItemSelected(toDoListItem)"
+                            [isChecked]="getIsItemChecked(toDoListItem)"
                             (deleteItemEvent)="deleteItem($event)"
                             (goToItemEvent)="goToItem($event)"
                             (setIsEditingEvent)="setIsEditing($event);"
@@ -38,4 +38,4 @@
     <section class="app-to-do-create-item-wrapper">
         <app-to-do-create-item />
     </section>
-}
+</ng-template>

@@ -31,7 +31,7 @@ import { SharedModule } from '../../modules';
     styleUrl: './to-do-edit-item.component.scss',
 })
 export class ToDoEditItemComponent implements OnChanges {
-    @Input() public toDoListItem?: ToDoListItem;
+    @Input() public toDoListItem?: ToDoListItem | null;
 
     constructor(private _toDoListService: ToDoListService) {}
 

@@ -19,8 +19,8 @@ export class ToDoListItemComponent {
 
     @Output() public goToItemEvent: EventEmitter<string> = new EventEmitter<string>();
     @Output() public setIsEditingEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() public toggleItemStatusEvent: EventEmitter<string> = new EventEmitter<string>();
     @Output() public deleteItemEvent: EventEmitter<string> = new EventEmitter<string>();
+    @Output() public toggleItemStatusEvent: EventEmitter<ToDoListItem> = new EventEmitter<ToDoListItem>();
 
     public goToItem(id?: string) {
         this.goToItemEvent.emit(id);
@@ -30,9 +30,9 @@ export class ToDoListItemComponent {
         this.setIsEditingEvent.emit(isEditing);
     }
 
-    public toggleItemStatus(e: Event, id?: string) {
+    public toggleItemStatus(e: Event) {
         e.stopPropagation();
-        this.toggleItemStatusEvent.emit(id);
+        this.toggleItemStatusEvent.emit(this.item);
     }
 
     public deleteItem(e: Event, id?: string) {
