@@ -28,7 +28,7 @@ import { EMPTY, map, Observable, combineLatest, BehaviorSubject } from 'rxjs';
     styleUrls: ['../../app.component.scss', './to-do-list.component.scss'],
 })
 export class ToDoListComponent implements OnInit {
-    private _selectedOptionSubject = new BehaviorSubject<string>(ALL_SELECT_OPTION);
+    private _selectedOptionSubject = new BehaviorSubject<ItemSelectOption>(ALL_SELECT_OPTION);
 
     public itemSelectOptions: ItemSelectOption[] = [ALL_SELECT_OPTION, ...Object.values(STATUS_OPTIONS)];
 
@@ -83,7 +83,7 @@ export class ToDoListComponent implements OnInit {
     ngOnInit() {
         this.toDoListService.getToDoList();
         this.filteredToDoList$ = combineLatest([this.toDoListService.toDoList$, this.selectedOption$]).pipe(
-            map(([items, selectedOption]) => {
+            map(([items, selectedOption]: [ToDoListItem[], ItemSelectOption]) => {
                 if (!items) {
                     return null;
                 }
