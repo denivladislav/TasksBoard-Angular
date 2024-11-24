@@ -6,12 +6,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ToDoListService } from '../../services';
 import { ToDoListItemComponent } from '../to-do-list-item';
-import { ButtonComponent } from '../../ui';
-import { ToDoListItemDescriptionComponent } from '../to-do-list-item-description';
 import { SharedModule } from '../../modules';
 import { STATUS_OPTIONS, ToDoListItem } from '../../services/to-do-list-service/to-do-list.service.types';
 import { ALL_SELECT_OPTION, ItemSelectOption } from './to-do-list.component.types';
 import { ToDoCreateItemComponent } from '../to-do-create-item';
+import { EMPTY, map, Observable, combineLatest, BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'app-to-do-list',
@@ -23,66 +22,48 @@ import { ToDoCreateItemComponent } from '../to-do-create-item';
         MatSelectModule,
         ToDoListItemComponent,
         ToDoCreateItemComponent,
-        ToDoListItemDescriptionComponent,
-        ButtonComponent,
         SharedModule,
     ],
     templateUrl: './to-do-list.component.html',
     styleUrls: ['../../app.component.scss', './to-do-list.component.scss'],
 })
 export class ToDoListComponent implements OnInit {
+    private _selectedOptionSubject = new BehaviorSubject<string>(ALL_SELECT_OPTION);
+
     public itemSelectOptions: ItemSelectOption[] = [ALL_SELECT_OPTION, ...Object.values(STATUS_OPTIONS)];
-    public selectedOption: ItemSelectOption = this.itemSelectOptions[0];
+
+    public filteredToDoList$: Observable<ToDoListItem[] | null> = EMPTY;
+    public selectedOption$ = this._selectedOptionSubject.asObservable();
 
     constructor(
-        private _toDoListService: ToDoListService,
         private _router: Router,
         private _route: ActivatedRoute,
+
+        public toDoListService: ToDoListService,
     ) {}
-
-    public get toDoList(): ToDoListItem[] {
-        return this._toDoListService.toDoList;
-    }
-
-    public get isEditing() {
-        return this._toDoListService.isEditing;
-    }
-
-    public get isLoading() {
-        return this._toDoListService.isLoading;
-    }
 
     public get selectedItemId() {
         return this._router.url.split('/').pop();
     }
 
-    public get filteredToDoList(): ToDoListItem[] {
-        if (this.selectedOption === ALL_SELECT_OPTION) {
-            return this.toDoList;
-        }
-
-        return this.toDoList.filter((item) => item.status === this.selectedOption);
+    public getIsItemSelected(item: ToDoListItem): boolean {
+        return item.id === this.selectedItemId;
     }
 
-    public getIsItemSelected(id: string): boolean {
-        return this.selectedItemId === id;
-    }
-
-    public getIsItemChecked(id: string): boolean {
-        const item = this._toDoListService.getItemById(id);
-        if (!item) {
-            return false;
-        }
-
+    public getIsItemChecked(item: ToDoListItem): boolean {
         return item.status === STATUS_OPTIONS.completed;
     }
 
     public setIsEditing(isEditing: boolean) {
-        this._toDoListService.setIsEditing(isEditing);
+        this.toDoListService.setIsEditing(isEditing);
     }
 
-    public toggleItemStatus(id: string) {
-        this._toDoListService.toggleItemStatus(id);
+    public setSelectedOption(option: ItemSelectOption) {
+        this._selectedOptionSubject.next(option);
+    }
+
+    public toggleItemStatus(item: ToDoListItem) {
+        this.toDoListService.toggleItemStatus(item);
     }
 
     public cancelEditing(formDirective: FormGroupDirective) {
@@ -91,7 +72,7 @@ export class ToDoListComponent implements OnInit {
     }
 
     public deleteItem(id: string) {
-        this._toDoListService.deleteItem(id);
+        this.toDoListService.deleteItem(id);
         this._router.navigate(['/'], { relativeTo: this._route });
     }
 
@@ -100,6 +81,19 @@ export class ToDoListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._toDoListService.getToDoList();
+        this.toDoListService.getToDoList();
+        this.filteredToDoList$ = combineLatest([this.toDoListService.toDoList$, this.selectedOption$]).pipe(
+            map(([items, selectedOption]) => {
+                if (!items) {
+                    return null;
+                }
+
+                if (selectedOption === ALL_SELECT_OPTION) {
+                    return items;
+                }
+
+                return items.filter((item) => item.status === selectedOption);
+            }),
+        );
     }
 }

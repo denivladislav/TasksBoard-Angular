@@ -1,10 +1,10 @@
-@if (isEditing) {
-    <app-to-do-edit-item
-        [toDoListItem]="getSelectedItem()"
-    ></app-to-do-edit-item>
-} @else {
+<app-to-do-edit-item *ngIf="toDoListService.isEditing$ | async; else description"
+    [toDoListItem]="selectedItem$ | async"
+></app-to-do-edit-item>
+
+<ng-template #description>
     <app-to-do-list-item-description
         class="description"
-        [toDoListItem]="getSelectedItem()"
+        [toDoListItem]="selectedItem$ | async"
     ></app-to-do-list-item-description>
-}
+</ng-template>

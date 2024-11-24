@@ -5,7 +5,7 @@
 
     {{ item?.name }}
     <div class="to-do-list-item__controls">
-        <mat-checkbox [checked]="isChecked" (click)="toggleItemStatus($event, item?.id)">Completed</mat-checkbox>
+        <mat-checkbox [checked]="isChecked" (click)="toggleItemStatus($event)">Completed</mat-checkbox>
         <app-button
             appCustomTooltip="Delete todo item" 
             (click)="deleteItem($event, item?.id)" 
