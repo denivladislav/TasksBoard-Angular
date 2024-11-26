@@ -2,21 +2,24 @@
     <mat-form-field>
         <input
             matInput
-            type="text" 
-            placeholder="New todo item name" 
+            type="text"
+            i18n-placeholder="@@editToDoPlaceholder"
+            placeholder="New todo item name"
             name="editName"
             [formControl]="editItemForm.controls.name"
         />
         @if (editItemForm.controls.name.hasError('required') || editItemForm.controls.name.hasError('whitespace')) {
-            <mat-error>Name is <strong>required</strong></mat-error>
+            <mat-error i18n="@@nameRequiredError">Name is required</mat-error>
         }
     </mat-form-field>
     <div class="edit-item-form__button-group">
         <app-button
             type="button"
             appCustomTooltip="Cancel editing" 
+            i18n-appCustomTooltip="@@cancelEditToDoTooltip"
             [appearance]="'stroked'"
             (click)="cancelEditing(formDirective)"
+            i18n="@@cancelEditToDo"
         >
             Cancel
         </app-button>
@@ -24,7 +27,9 @@
             type="submit"
             class="button__positive"
             appCustomTooltip="Save new item todo" 
+            i18n-appCustomTooltip="@@confirmEditToDoTooltip"
             [disabled]="editItemForm.controls.name.invalid"
+            i18n="@@confirmEditToDo"
         >
             Save
         </app-button>

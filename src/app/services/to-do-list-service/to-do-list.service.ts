@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { STATUS_OPTIONS, ToDoListItem, ToDoListItemStatus } from './to-do-list.service.types';
+import { STATUS_OPTIONS, TOAST_MESSAGES, ToDoListItem, ToDoListItemStatus } from './to-do-list.service.types';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, catchError, map, Observable, switchMap, take, throwError, withLatestFrom } from 'rxjs';
 import { ToastService } from '../toast-service';
@@ -21,7 +21,6 @@ export class ToDoListService {
 
     constructor(private _toastService: ToastService) {}
 
-    // ДОБАВИТЬ ОТПИСКИ!!!!
     public getItemIds(items: ToDoListItem[]) {
         return items.map((item) => item.id);
     }
@@ -84,7 +83,7 @@ export class ToDoListService {
                 this._toDoListSubject.next(items);
                 this._isLoadingSubject.next(false);
                 this._toastService.addToast({
-                    message: 'Todo was added!',
+                    message: TOAST_MESSAGES.add,
                     toastType: 'positive',
                 });
             });
@@ -108,7 +107,7 @@ export class ToDoListService {
                 this._toDoListSubject.next(items);
                 this._isLoadingSubject.next(false);
                 this._toastService.addToast({
-                    message: 'Todo was updated!',
+                    message: TOAST_MESSAGES.patch,
                     toastType: 'info',
                 });
             });
@@ -132,7 +131,7 @@ export class ToDoListService {
                 this._toDoListSubject.next(items);
                 this._isLoadingSubject.next(false);
                 this._toastService.addToast({
-                    message: 'Todo was deleted!',
+                    message: TOAST_MESSAGES.delete,
                     toastType: 'negative',
                 });
             });
@@ -141,7 +140,7 @@ export class ToDoListService {
     public handleHttpError(err: HttpErrorResponse): Observable<never> {
         console.error(err);
 
-        const message = 'Something went wrong. Try again';
+        const message = TOAST_MESSAGES.error;
         this._toastService.addToast({
             message,
             toastType: 'error',

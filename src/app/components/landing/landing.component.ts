@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { ROUTE_CHILDREN_TOKENS, ROUTE_TOKENS } from '../../app.routes';
+import { LOCALIZED_ROUTE_TOKENS, ROUTE_CHILDREN_TOKENS, ROUTE_TOKENS } from '../../app.routes';
 import { CommonModule } from '@angular/common';
 import { capitalize } from '../../utils';
 
@@ -17,12 +17,17 @@ export class LandingComponent {
     public routes = this.routeTokens.map((route) => ({
         name: route,
         path: route === 'backlog' ? `${route}/${ROUTE_CHILDREN_TOKENS.TASKS}` : route,
+        localizedName: LOCALIZED_ROUTE_TOKENS[route],
     }));
 
     constructor(private _router: Router) {}
 
     public get currentTab() {
         return this._router.url.split('/').find((path) => (this.routeTokens as string[]).includes(path));
+    }
+
+    public get localizedTabName() {
+        return this.routes.find((route) => route.name === this.currentTab)?.localizedName;
     }
 
     public getIsRouteSelected(route: string): boolean {

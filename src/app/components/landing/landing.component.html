@@ -1,21 +1,21 @@
 <main>
     <div class="app-container">
         <aside class="app-container__sidebar">
-            <h1>TasksBoard</h1>
+            <h1 i18n="@@applicationName">Tasks Board</h1>
             <div class="app-container__sidebar-links">
                 @for (route of routes; track route) {
                     <a
                         [routerLink]="'/' + route.path"
                         [ngClass]="{'app-container__sidebar-link': true, 'app-container__sidebar-link--selected': getIsRouteSelected(route.name)}"
                     >
-                        {{ capitalize(route.name) }}
+                        {{ capitalize(route.localizedName) }}
                     </a>
                 }
             </div>
         </aside>
         <div class="app-container__content-wrapper">
             <div class="app-container__app-bar">
-                <h3>{{ currentTab && capitalize(currentTab) }}</h3>
+                <h3>{{ localizedTabName && capitalize(localizedTabName) }}</h3>
             </div>
             <div class="app-container__content">
                 <router-outlet></router-outlet>

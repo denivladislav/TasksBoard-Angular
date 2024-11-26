@@ -1,18 +1,33 @@
 <form #formDirective="ngForm" [formGroup]="addItemForm" class="add-item-form" (ngSubmit)="onAddItemFormSubmit(formDirective)">
     <mat-form-field class="add-item-form__formfield">
-        <input matInput [formControl]="addItemForm.controls.name" type="text" placeholder="Add your new todo" name="nameInput" />
+        <input
+            matInput
+            [formControl]="addItemForm.controls.name"
+            type="text" placeholder="Add your new todo"
+            i18n-placeholder="@@addNewToDoInputPlaceholder"
+            name="nameInput"
+        />
         @if (addItemForm.controls.name.hasError('required') || addItemForm.controls.name.hasError('whitespace')) {
-            <mat-error>Name is <strong>required</strong></mat-error>
+            <mat-error i18n="@@nameRequiredError">Name is required</mat-error>
         }
     </mat-form-field>
     <mat-form-field class="add-item-form__formfield">
-        <textarea matInput [formControl]="addItemForm.controls.description" type="text" placeholder="Add description" name="descriptionInput"></textarea>
+        <textarea 
+            matInput
+            [formControl]="addItemForm.controls.description"
+            type="text"
+            placeholder="Add description"
+            i18n-placeholder="@@addToDoDescriptionPlaceholder"
+            name="descriptionInput">
+        </textarea>
     </mat-form-field>
-    <app-button 
+    <app-button
         type="submit"
         class="button__positive"
         appCustomTooltip="Add new todo item"
-        [disabled]="addItemForm.controls.name.invalid"  
+        i18n-appCustomTooltip="@@addNewItemTooltip"
+        [disabled]="addItemForm.controls.name.invalid"
+        i18n="@@addNewItem"
     >
         Add
     </app-button>

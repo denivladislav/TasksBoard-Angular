@@ -9,6 +9,11 @@ export const ROUTE_CHILDREN_TOKENS = {
     TASKS: 'tasks',
 } as const;
 
+export const LOCALIZED_ROUTE_TOKENS = {
+    [ROUTE_TOKENS.BACKLOG]: $localize`backlog`,
+    [ROUTE_TOKENS.BOARD]: $localize`board`,
+};
+
 export const routes: Routes = [
     {
         path: '',

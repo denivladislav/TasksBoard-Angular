@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "json-server --watch db.json & ng serve",
+    "start:ru": "json-server --watch db.json & ng serve --configuration=ru --open",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -48,6 +49,7 @@
     "@angular-devkit/build-angular": "^18.1.3",
     "@angular/cli": "^18.1.3",
     "@angular/compiler-cli": "^18.1.0",
+    "@angular/localize": "^18.2.0",
     "@types/jasmine": "~5.1.0",
     "angular-eslint": "18.3.0",
     "eslint": "^9.9.0",
