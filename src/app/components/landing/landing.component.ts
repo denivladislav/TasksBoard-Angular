@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { LOCALIZED_ROUTE_TOKENS, ROUTE_CHILDREN_TOKENS, ROUTE_TOKENS } from '../../app.routes';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { CommonModule } from '@angular/common';
 import { capitalize } from '../../utils';
+import { LocaleService } from '../../services/locale-service';
 
 @Component({
     selector: 'app-landing',
     standalone: true,
-    imports: [CommonModule, RouterLink, RouterOutlet],
+    imports: [CommonModule, RouterLink, RouterOutlet, MatButtonToggleModule],
     templateUrl: './landing.component.html',
     styleUrl: './landing.component.scss',
 })
@@ -20,7 +22,14 @@ export class LandingComponent {
         localizedName: LOCALIZED_ROUTE_TOKENS[route],
     }));
 
-    constructor(private _router: Router) {}
+    constructor(
+        private _router: Router,
+        private _localeService: LocaleService,
+    ) {}
+
+    public get locales() {
+        return this._localeService.locales;
+    }
 
     public get currentTab() {
         return this._router.url.split('/').find((path) => (this.routeTokens as string[]).includes(path));
@@ -30,8 +39,16 @@ export class LandingComponent {
         return this.routes.find((route) => route.name === this.currentTab)?.localizedName;
     }
 
+    public get currentLocale() {
+        return this._localeService.currentLocale;
+    }
+
     public getIsRouteSelected(route: string): boolean {
         return this.currentTab === route;
+    }
+
+    public onLocaleChange(locale: string) {
+        this._localeService.onLocaleChange(locale);
     }
 
     public capitalize = capitalize;
