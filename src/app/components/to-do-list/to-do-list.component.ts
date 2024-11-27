@@ -54,7 +54,7 @@ export class ToDoListComponent implements OnInit {
         return item.status === STATUS_OPTIONS.completed;
     }
 
-    public getLocalizedOption(option: ItemSelectOption) {
+    public getLocalizedOption(option: ItemSelectOption): string {
         return LOCALIZED_SELECT_OPTIONS[option];
     }
 

@@ -4,7 +4,7 @@ import { LOCALIZED_ROUTE_TOKENS, ROUTE_CHILDREN_TOKENS, ROUTE_TOKENS } from '../
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { CommonModule } from '@angular/common';
 import { capitalize } from '../../utils';
-import { LocaleService } from '../../services/locale-service';
+import { Locale, LocaleService } from '../../services';
 
 @Component({
     selector: 'app-landing',
@@ -27,19 +27,19 @@ export class LandingComponent {
         private _localeService: LocaleService,
     ) {}
 
-    public get locales() {
+    public get locales(): Locale[] {
         return this._localeService.locales;
     }
 
-    public get currentTab() {
+    public get currentTab(): string | undefined {
         return this._router.url.split('/').find((path) => (this.routeTokens as string[]).includes(path));
     }
 
-    public get localizedTabName() {
+    public get localizedTabName(): string | undefined {
         return this.routes.find((route) => route.name === this.currentTab)?.localizedName;
     }
 
-    public get currentLocale() {
+    public get currentLocale(): string | undefined {
         return this._localeService.currentLocale;
     }
 

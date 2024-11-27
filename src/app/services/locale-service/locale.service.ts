@@ -18,7 +18,7 @@ export class LocaleService {
         },
     ];
 
-    public get currentLocale() {
+    public get currentLocale(): string | undefined {
         return this.locales.find((locale) => window.location.href.includes(locale.url))?.id;
     }
 
