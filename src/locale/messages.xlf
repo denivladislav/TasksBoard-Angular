@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="2946988289493771337" datatype="html">
+        <source>backlog</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.routes.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5520127934627226585" datatype="html">
+        <source>board</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.routes.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="applicationName" datatype="html">
+        <source>Tasks Board</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/landing/landing.component.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6783667173167343542" datatype="html">
+        <source>Language switcher</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/landing/landing.component.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="LoadingSpinnerAriaLabel" datatype="html">
+        <source>Loading</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/loading-spinner/loading-spinner.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="addNewToDoInputPlaceholder" datatype="html">
+        <source>Add your new todo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/to-do-create-item/to-do-create-item.component.html</context>
+          <context context-type="linenumber">6,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nameRequiredError" datatype="html">
+        <source>Name is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/to-do-create-item/to-do-create-item.component.html</context>
+          <context context-type="linenumber">11,13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/to-do-edit-item/to-do-edit-item.component.html</context>
+          <context context-type="linenumber">12,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="addToDoDescriptionPlaceholder" datatype="html">
+        <source>Add description</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/to-do-create-item/to-do-create-item.component.html</context>
+          <context context-type="linenumber">19,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="addNewItemTooltip" datatype="html">
+        <source>Add new todo item</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/to-do-create-item/to-do-create-item.component.html</context>
+          <context context-type="linenumber">27,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="addNewItem" datatype="html">
+        <source> Add </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/to-do-create-item/to-do-create-item.component.html</context>
+          <context context-type="linenumber">32,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="editToDoPlaceholder" datatype="html">
+        <source>New todo item name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/to-do-edit-item/to-do-edit-item.component.html</context>
+          <context context-type="linenumber">7,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cancelEditToDoTooltip" datatype="html">
+        <source>Cancel editing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/to-do-edit-item/to-do-edit-item.component.html</context>
+          <context context-type="linenumber">18,19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cancelEditToDo" datatype="html">
+        <source> Cancel </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/to-do-edit-item/to-do-edit-item.component.html</context>
+          <context context-type="linenumber">24,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmEditToDoTooltip" datatype="html">
+        <source>Save new item todo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/to-do-edit-item/to-do-edit-item.component.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmEditToDo" datatype="html">
+        <source> Save </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/to-do-edit-item/to-do-edit-item.component.html</context>
+          <context context-type="linenumber">34,35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="completedToDoCheckbox" datatype="html">
+        <source>Completed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/to-do-list-item/to-do-list-item.component.html</context>
+          <context context-type="linenumber">8,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="deleteToDoItemTooltip" datatype="html">
+        <source>Delete todo item</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/to-do-list-item/to-do-list-item.component.html</context>
+          <context context-type="linenumber">10,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="deleteToDoItem" datatype="html">
+        <source> Delete </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/to-do-list-item/to-do-list-item.component.html</context>
+          <context context-type="linenumber">16,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1616102757855967475" datatype="html">
+        <source>All</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/to-do-list/to-do-list.component.types.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3307214558906712688" datatype="html">
+        <source>In progress</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/to-do-list-service/to-do-list.service.types.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1161299114153631702" datatype="html">
+        <source>Completed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/to-do-list-service/to-do-list.service.types.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8482709967449586002" datatype="html">
+        <source>Todo was added!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/to-do-list-service/to-do-list.service.types.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6338615406947990192" datatype="html">
+        <source>Todo was updated!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/to-do-list-service/to-do-list.service.types.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1397451549780049452" datatype="html">
+        <source>Todo was deleted!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/to-do-list-service/to-do-list.service.types.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7325820285461614910" datatype="html">
+        <source>Something went wrong. Try again</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/to-do-list-service/to-do-list.service.types.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

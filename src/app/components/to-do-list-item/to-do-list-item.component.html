@@ -1,15 +1,17 @@
 <li
     [ngClass]="{'to-do-list-item': true, 'to-do-list-item--selected': isSelected}"
     (click)="goToItem(item?.id)"
-    (dblclick)="setIsEditing(true)">
-
+    (dblclick)="setIsEditing(true)"
+>
     {{ item?.name }}
     <div class="to-do-list-item__controls">
-        <mat-checkbox [checked]="isChecked" (click)="toggleItemStatus($event)">Completed</mat-checkbox>
+        <mat-checkbox [checked]="isChecked" (click)="toggleItemStatus($event)" i18n="@@completedToDoCheckbox">Completed</mat-checkbox>
         <app-button
             appCustomTooltip="Delete todo item" 
+            i18n-appCustomTooltip="@@deleteToDoItemTooltip"
             (click)="deleteItem($event, item?.id)" 
             class="button__negative"
+            i18n="@@deleteToDoItem"
         >
             Delete
         </app-button>

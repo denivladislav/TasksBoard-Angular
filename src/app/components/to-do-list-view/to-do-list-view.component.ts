@@ -25,7 +25,7 @@ export class ToDoListViewComponent implements OnInit {
         return this._router.url.split('/').pop();
     }
 
-    public get routerNavigationEvent() {
+    public get routerNavigationEvent(): Observable<string | NavigationEnd> {
         return this._router.events.pipe(
             filter((event) => event instanceof NavigationEnd),
             startWith(this._router.url),

@@ -4,7 +4,7 @@
     <div class="board">
         @for (status of statusOptions; track status) {
             <div class="column">
-                <h2 class="column__header">{{ status }}</h2>
+                <h2 class="column__header">{{ getLocalizedStatus(status) }}</h2>
                 <ul class="task-list">
                     @for (toDoListItem of getTasksByStatusOption(status) | async; track toDoListItem) {
                         <app-to-do-list-item

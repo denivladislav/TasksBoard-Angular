@@ -13,15 +13,26 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en",
+        "locales": {
+          "ru": {
+            "translation": "src/locale/messages.ru.xlf"
+          }
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "i18nMissingTranslation": "error",
+            "localize": true,
             "outputPath": "dist/to-do-list",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
-              "zone.js"
+              "zone.js",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
@@ -59,6 +70,12 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "ru":{
+              "localize": ["ru"]
+            },
+            "en":{
+              "localize": ["en"]
             }
           },
           "defaultConfiguration": "production"
@@ -71,6 +88,12 @@
             },
             "development": {
               "buildTarget": "ToDoList:build:development"
+            },
+            "ru": {
+              "buildTarget": "ToDoList:build:development,ru"
+            },
+            "en": {
+              "buildTarget": "ToDoList:build:development,en"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +106,8 @@
           "options": {
             "polyfills": [
               "zone.js",
-              "zone.js/testing"
+              "zone.js/testing",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",

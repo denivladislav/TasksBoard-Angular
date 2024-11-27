@@ -8,7 +8,7 @@ import { ToDoListService } from '../../services';
 import { ToDoListItemComponent } from '../to-do-list-item';
 import { SharedModule } from '../../modules';
 import { STATUS_OPTIONS, ToDoListItem } from '../../services/to-do-list-service/to-do-list.service.types';
-import { ALL_SELECT_OPTION, ItemSelectOption } from './to-do-list.component.types';
+import { ALL_SELECT_OPTION, LOCALIZED_SELECT_OPTIONS, ItemSelectOption } from './to-do-list.component.types';
 import { ToDoCreateItemComponent } from '../to-do-create-item';
 import { EMPTY, map, Observable, combineLatest, BehaviorSubject } from 'rxjs';
 
@@ -52,6 +52,10 @@ export class ToDoListComponent implements OnInit {
 
     public getIsItemChecked(item: ToDoListItem): boolean {
         return item.status === STATUS_OPTIONS.completed;
+    }
+
+    public getLocalizedOption(option: ItemSelectOption): string {
+        return LOCALIZED_SELECT_OPTIONS[option];
     }
 
     public setIsEditing(isEditing: boolean) {

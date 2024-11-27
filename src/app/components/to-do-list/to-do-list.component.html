@@ -8,7 +8,7 @@
                     <mat-select [value]="selectedOption$ | async" (selectionChange)="setSelectedOption($event.value)">
                         @for (option of itemSelectOptions; track option) {
                             <mat-option [value]="option">
-                                {{ option }}
+                                {{ getLocalizedOption(option) }}
                             </mat-option>
                         }
                     </mat-select>
