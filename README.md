@@ -18,7 +18,7 @@ i18n is implemented via angular/localize (EN and RU locales).
 $ npm install
 
 # Develop
-(runs backend server and ports for both languages).
+# (runs backend server and ports for both languages).
 $ npm run start
 
 # Lint.
