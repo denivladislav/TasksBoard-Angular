@@ -1,29 +1,25 @@
-# ToDoList
+# Tasks Board
 
 [![CI](https://github.com/Angular-OTUS/ToDoList-VladislavDenisov-/actions/workflows/CI.yml/badge.svg)](https://github.com/Angular-OTUS/ToDoList-VladislavDenisov-/actions/workflows/CI.yml)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.3.
+This app has two pages – Backlog and Board. User may add/edit/delete tasks with descriptions and toggle their status.
+i18n is implemented via angular/localize (EN and RU locales).
 
-## Development server
+<img width="1512" alt="tasks" src="https://github.com/user-attachments/assets/61e0f106-ae9a-440e-8ca0-2a9c50be6686">
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Stack
+- TypeScript, Angular 18, RxJS, json-server
+- Angular Material UI, scss, angular/localize
+- ESlint, husky, prettier, stylelint, htmlhint
 
-## Code scaffolding
+### How To Use Locally:
+```bash
+# Install Dependencies.
+$ npm install
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# Develop
+(runs backend server and ports for both languages).
+$ npm run start
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+# Lint.
+$ make lint
